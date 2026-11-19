@@ -597,6 +597,38 @@ const messages = {
         'होय. आम्ही चिप-लेव्हल मदरबोर्ड दुरुस्ती, MacBook दुरुस्ती, ऑल-इन-वन (AIO) सिस्टीम आणि सर्व प्रमुख लॅपटॉप व डेस्कटॉप दुरुस्त करतो.',
         'હા. અમે ચિપ-લેવલ મધરબોર્ડ રિપેરિંગ, MacBook રિપેર, ઓલ-ઇન-વન (AIO) સિસ્ટમ અને તમામ મુખ્ય લેપટોપ તથા ડેસ્કટોપ રિપેર કરીએ છીએ.',
     ],
+    about: ['About', 'आमच्याबद्दल', 'અમારા વિશે'],
+    terms: ['Terms & Privacy', 'अटी व गोपनीयता', 'નિયમો અને ગોપનીયતા'],
+    aboutTitle: [
+        'About Vishwa IT Solutions',
+        'विश्व आयटी सोल्यूशन्सबद्दल',
+        'વિશ્વ આઇટી સોલ્યુશન્સ વિશે',
+    ],
+    aboutIntro: [
+        'Trusted computer repair, chip-level diagnostics, MacBook & All-in-One service, and pre-owned devices in Nalasopara East.',
+        'नालासोपारा पूर्व येथे विश्वासार्ह संगणक दुरुस्ती, चिप-लेव्हल तपासणी, MacBook व ऑल-इन-वन सेवा आणि वापरलेले संगणक.',
+        'નાલાસોપારા પૂર્વમાં વિશ્વસનીય કમ્પ્યુટર રિપેર, ચિપ-લેવલ તપાસ, MacBook અને ઓલ-ઇન-વન સેવા તથા વપરાયેલા કમ્પ્યુટર.',
+    ],
+    termsTitle: [
+        'Terms of Service & Privacy',
+        'सेवा अटी आणि गोपनीयता',
+        'સેવાની શરતો અને ગોપનીયતા',
+    ],
+    termsIntro: [
+        'Clear visiting charges, repair terms, and how we handle your enquiries and device data.',
+        'स्पष्ट व्हिजिटिंग दर, दुरुस्तीच्या अटी आणि तुमची माहिती आम्ही कशी सुरक्षित ठेवतो.',
+        'સ્પષ્ટ વિઝિટિંગ ચાર્જ, રિપેરની શરતો અને અમે તમારી માહિતી કેવી રીતે સુરક્ષિત રાખીએ છીએ.',
+    ],
+    serviceAreasTitle: [
+        'Serving Mumbai & Palghar',
+        'मुंबई आणि पालघरमध्ये सेवा',
+        'મુંબઈ અને પાલઘરમાં સેવા',
+    ],
+    serviceAreasIntro: [
+        'On-site technician visits and chip-level workshop repair across Palghar, Vasai-Virar, Mumbai Western Line, and Mumbai Central Line.',
+        'पालघर, वसई-विरार, मुंबई वेस्टर्न लाईन आणि सेंट्रल लाईनवर तंत्रज्ञ भेट व चिप-लेव्हल दुरुस्ती.',
+        'પાલઘર, વસઈ-વિરાર, મુંબઈ વેસ્ટર્ન લાઇન અને સેન્ટ્રલ લાઇન પર ટેક્નિશિયન વિઝિટ અને ચિપ-લેવલ રિપેર.',
+    ],
 } satisfies Record<string, [string, string, string]>;
 
 export type SiteTextKey = keyof typeof messages;

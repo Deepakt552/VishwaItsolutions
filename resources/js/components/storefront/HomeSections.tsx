@@ -6,6 +6,7 @@ import {
     Cpu,
     HelpCircle,
     Laptop,
+    MapPin,
     Monitor,
     Phone,
     ShieldCheck,
@@ -423,6 +424,83 @@ export function Maintenance() {
                         {t('maintenance')}
                     </Link>
                 </Reveal>
+            </div>
+        </section>
+    );
+}
+
+export function ServiceAreas() {
+    const { t } = useSiteText();
+    const zones = [
+        {
+            name: 'Palghar & Vasai-Virar',
+            places: [
+                'Nalasopara East',
+                'Nalasopara West',
+                'Vasai',
+                'Virar',
+                'Palghar',
+                'Boisar',
+            ],
+        },
+        {
+            name: 'Mumbai Western Line',
+            places: [
+                'Mira Road',
+                'Bhayandar',
+                'Dahisar',
+                'Borivali',
+                'Kandivali',
+                'Malad',
+                'Goregaon',
+                'Andheri',
+                'Bandra',
+            ],
+        },
+        {
+            name: 'Mumbai Central Line',
+            places: [
+                'Thane',
+                'Mulund',
+                'Bhandup',
+                'Ghatkopar',
+                'Kurla',
+                'Dadar',
+                'Kalyan',
+                'Dombivli',
+            ],
+        },
+    ];
+
+    return (
+        <section
+            className="section service-areas-section"
+            aria-labelledby="service-areas-title"
+        >
+            <div className="wrap">
+                <Reveal className="service-areas-head">
+                    <h2 id="service-areas-title">{t('serviceAreasTitle')}</h2>
+                    <p>{t('serviceAreasIntro')}</p>
+                </Reveal>
+                <div className="service-areas-grid">
+                    {zones.map((zone, index) => (
+                        <Reveal
+                            key={zone.name}
+                            className="service-area-card"
+                            delay={index * 65}
+                        >
+                            <h3>
+                                <MapPin size={17} aria-hidden="true" />
+                                {zone.name}
+                            </h3>
+                            <div className="service-area-pills">
+                                {zone.places.map((place) => (
+                                    <span key={place}>{place}</span>
+                                ))}
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
             </div>
         </section>
     );

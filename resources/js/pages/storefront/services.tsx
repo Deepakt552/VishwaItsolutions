@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react';
 import { Chat } from '@/components/storefront/catalog';
 import {
+    ServiceAreas,
     ServiceIcon,
     SpecialistRepairs,
     VisitingPricingBanner,
@@ -186,6 +187,7 @@ export default function ServicesPage() {
                 </div>
             </section>
             <VisitingPricingBanner />
+            <ServiceAreas />
         </>
     );
 }

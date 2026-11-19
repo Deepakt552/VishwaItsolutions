@@ -9,6 +9,7 @@ import {
     FrequentlyAsked,
     Hero,
     Maintenance,
+    ServiceAreas,
     Services,
     VisitingPricingBanner,
 } from '@/components/storefront/HomeSections';
@@ -65,6 +66,7 @@ export default function Home({
                 </section>
             )}
             <FrequentlyAsked />
+            <ServiceAreas />
             <Contact />
         </>
     );

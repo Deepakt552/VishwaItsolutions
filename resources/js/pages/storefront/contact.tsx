@@ -106,6 +106,11 @@ export default function ContactPage() {
                             {...send.form()}
                             resetOnSuccess
                             className="site-fields contact-form"
+                            {...({
+                                toolname: 'send_contact_enquiry',
+                                tooldescription:
+                                    'Send a computer repair, IT support, or pre-owned device enquiry to Vishwa IT Solutions.',
+                            } as Record<string, string>)}
                         >
                             {({ processing, errors }) => (
                                 <>

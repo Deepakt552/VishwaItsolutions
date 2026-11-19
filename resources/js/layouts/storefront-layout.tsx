@@ -1,5 +1,14 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { MapPin, Menu, Phone, X } from 'lucide-react';
+import {
+    BookOpen,
+    ChevronRight,
+    Home,
+    Laptop,
+    MapPin,
+    Phone,
+    Wrench,
+    X,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import '../../css/storefront.css';
@@ -15,16 +24,24 @@ import {
 import { Chat } from '@/components/storefront/catalog';
 import LanguageSwitcher from '@/components/storefront/language-switcher';
 import { useSiteText } from '@/lib/site-text';
-import { dashboard, home, login } from '@/routes';
-import { blog, contact, services, shop } from '@/routes/storefront';
+import { registerWebMcpTools } from '@/lib/webmcp';
+import { home } from '@/routes';
+import {
+    about,
+    blog,
+    contact,
+    services,
+    shop,
+    terms,
+} from '@/routes/storefront';
 import type { Seo } from '@/types/storefront';
 
 const mainNav = [
-    ['home', home],
-    ['services', services],
-    ['shop', shop],
-    ['blog', blog],
-    ['contact', contact],
+    ['home', home, Home],
+    ['services', services, Wrench],
+    ['shop', shop, Laptop],
+    ['blog', blog, BookOpen],
+    ['contact', contact, Phone],
 ] as const;
 
 export default function StorefrontLayout({
@@ -46,6 +63,24 @@ export default function StorefrontLayout({
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
+
+    useEffect(() => {
+        if (!menu) {
+            return;
+        }
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setMenu(false);
+            }
+        };
+        window.addEventListener('keydown', onKeyDown);
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener('keydown', onKeyDown);
+        };
+    }, [menu]);
     const social = {
         'og:title': seo.title,
         'og:description': seo.description,
@@ -65,6 +100,7 @@ export default function StorefrontLayout({
     };
 
     useEffect(() => {
+        registerWebMcpTools();
         document.documentElement.lang = language;
         return () => {
             document.documentElement.lang = 'en';
@@ -139,17 +175,23 @@ export default function StorefrontLayout({
                     </Link>
                     <button
                         type="button"
-                        className="menu-button"
-                        aria-controls="site-nav"
+                        className={
+                            menu ? 'menu-button is-open' : 'menu-button'
+                        }
+                        aria-controls="mobile-drawer"
                         aria-expanded={menu}
                         aria-label={t(menu ? 'closeMenu' : 'openMenu')}
                         onClick={() => setMenu(!menu)}
                     >
-                        {menu ? <X /> : <Menu />}
+                        <span className="hamburger-bars" aria-hidden="true">
+                            <span />
+                            <span />
+                            <span />
+                        </span>
                     </button>
                     <nav
                         id="site-nav"
-                        className={menu ? 'nav open' : 'nav'}
+                        className="nav desktop-nav"
                         aria-label={t('mainNav')}
                     >
                         {mainNav.map(([label, route]) => {
@@ -173,26 +215,109 @@ export default function StorefrontLayout({
                     <Chat className="button header-chat">{t('whatsapp')}</Chat>
                 </div>
             </header>
+
+            {/* Modern Right-Side Slide-In Mobile Drawer */}
+            <div
+                className={
+                    menu
+                        ? 'mobile-drawer-backdrop is-open'
+                        : 'mobile-drawer-backdrop'
+                }
+                aria-hidden="true"
+                onClick={closeMenu}
+            />
+            <aside
+                id="mobile-drawer"
+                className={menu ? 'mobile-drawer is-open' : 'mobile-drawer'}
+                aria-label={t('mainNav')}
+                aria-hidden={!menu}
+            >
+                <div className="mobile-drawer-glow" aria-hidden="true" />
+                <div className="mobile-drawer-head">
+                    <div className="mobile-drawer-brand">
+                        <strong>Vishwa IT Solutions</strong>
+                        <span>{t('location')}</span>
+                    </div>
+                    <button
+                        type="button"
+                        className="mobile-drawer-close"
+                        aria-label={t('closeMenu')}
+                        onClick={closeMenu}
+                        tabIndex={menu ? 0 : -1}
+                    >
+                        <X size={20} aria-hidden="true" />
+                    </button>
+                </div>
+                <nav className="mobile-drawer-links" aria-label={t('mainNav')}>
+                    {mainNav.map(([label, route, Icon], index) => {
+                        const path = route.url();
+                        const active =
+                            pathname === path ||
+                            (path !== '/' && pathname.startsWith(path + '/'));
+                        return (
+                            <Link
+                                href={route()}
+                                onClick={closeMenu}
+                                key={label}
+                                aria-current={active ? 'page' : undefined}
+                                tabIndex={menu ? 0 : -1}
+                                style={{ ['--nav-i' as string]: index }}
+                            >
+                                <span
+                                    className="drawer-link-icon"
+                                    aria-hidden="true"
+                                >
+                                    <Icon size={18} />
+                                </span>
+                                <span className="drawer-link-label">
+                                    {t(label)}
+                                </span>
+                                <ChevronRight
+                                    size={16}
+                                    className="drawer-link-arrow"
+                                    aria-hidden="true"
+                                />
+                            </Link>
+                        );
+                    })}
+                </nav>
+                <div className="mobile-drawer-footer">
+                    <Chat className="button primary drawer-wa">
+                        {t('whatsapp')}
+                    </Chat>
+                    <a
+                        href={'tel:' + business.phone}
+                        className="button secondary drawer-call"
+                        dir="ltr"
+                        tabIndex={menu ? 0 : -1}
+                    >
+                        <Phone size={16} aria-hidden="true" />
+                        {business.phoneText}
+                    </a>
+                    <a
+                        href={directions}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="drawer-directions"
+                        tabIndex={menu ? 0 : -1}
+                    >
+                        <MapPin size={14} aria-hidden="true" />
+                        {t('directions')}
+                    </a>
+                </div>
+            </aside>
             <main id="main" tabIndex={-1}>
                 {children}
             </main>
-            <footer>
+            <footer className="site-footer">
                 <div className="wrap footer-inner">
-                    <span>© Vishwa IT Solutions</span>
-                    <div className="footer-links">
-                        <Link
-                            href={
-                                props.auth.user?.is_admin
-                                    ? dashboard()
-                                    : login()
-                            }
-                        >
-                            {t(
-                                props.auth.user?.is_admin
-                                    ? 'dashboard'
-                                    : 'admin',
-                            )}
-                        </Link>
+                    <span className="footer-copy">© Vishwa IT Solutions</span>
+                    <nav className="footer-nav" aria-label="Footer">
+                        <Link href={about()}>{t('about')}</Link>
+                        <Link href={contact()}>{t('contact')}</Link>
+                        <Link href={terms()}>{t('terms')}</Link>
+                    </nav>
+                    <div className="footer-lang">
                         <LanguageSwitcher />
                     </div>
                 </div>

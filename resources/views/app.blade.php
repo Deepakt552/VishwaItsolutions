@@ -44,6 +44,11 @@
             @if ($seo)
                 <meta data-inertia="description" name="description" content="{{ $seo['description'] }}">
                 <meta data-inertia="robots" name="robots" content="{{ $seo['robots'] }}">
+                <meta name="keywords" content="top rated laptop PC repair in Mumbai, best laptop repair Mumbai, best laptop repair Palghar, MacBook repair Mumbai, chip level motherboard repair Nalasopara, All-in-One PC repair Vasai Virar, data recovery from hard disk SSD SATA drive Mumbai, NVMe HDD data recovery Palghar, computer repair Western Line Mumbai, computer repair Central Line Mumbai, IT support Thane Borivali Andheri, doorstep laptop repair 350 rs">
+                <meta name="geo.region" content="IN-MH">
+                <meta name="geo.placename" content="Nalasopara East, Palghar, Mumbai, Maharashtra">
+                <meta name="geo.position" content="19.4189;72.8190">
+                <meta name="ICBM" content="19.4189, 72.8190">
                 <link data-inertia="canonical" rel="canonical" href="{{ $seo['canonical'] }}">
                 <meta data-inertia="og:title" property="og:title" content="{{ $seo['title'] }}">
                 <meta data-inertia="og:description" property="og:description" content="{{ $seo['description'] }}">
@@ -68,5 +73,22 @@
     </head>
     <body class="font-sans antialiased">
         <x-inertia::app />
+        @if ($seo)
+            <noscript>
+                <main>
+                    <h1>{{ $seo['title'] }}</h1>
+                    <p>{{ $seo['description'] }}</p>
+                    <nav aria-label="Primary links">
+                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('storefront.about') }}">About</a>
+                        <a href="{{ route('storefront.services') }}">Services</a>
+                        <a href="{{ route('storefront.shop') }}">Shop</a>
+                        <a href="{{ route('storefront.blog') }}">Blog</a>
+                        <a href="{{ route('storefront.contact') }}">Contact</a>
+                        <a href="{{ route('storefront.terms') }}">Terms &amp; Privacy</a>
+                    </nav>
+                </main>
+            </noscript>
+        @endif
     </body>
 </html>
