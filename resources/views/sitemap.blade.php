@@ -3,7 +3,7 @@
     @foreach ($urls as $url)
         <url>
             <loc>{{ $url['loc'] }}</loc>
-            @if ($url['updated'])
+            @if (isset($url['updated']))
                 <lastmod>{{ $url['updated'] }}</lastmod>
             @endif
         </url>

@@ -18,22 +18,24 @@ import type { ReviewAvailability } from '@/components/storefront/LiveReviews';
 import Reveal from '@/components/storefront/Reveal';
 import { useSiteText } from '@/lib/site-text';
 import { blog, shop } from '@/routes/storefront';
-import type { Article, Product } from '@/types/storefront';
+import type { Article, Product, RepairServiceLink } from '@/types/storefront';
 
 export default function Home({
     products,
     posts,
     reviewsEnabled,
+    repairServices,
 }: {
     products: Product[];
     posts: Article[];
     reviewsEnabled: ReviewAvailability;
+    repairServices: RepairServiceLink[];
 }) {
     const { t } = useSiteText();
     return (
         <>
             <Hero reviewsEnabled={reviewsEnabled} />
-            <Services />
+            <Services repairServices={repairServices} />
             <VisitingPricingBanner />
             <Maintenance />
             <section id="shop" className="section shop">

@@ -16,6 +16,7 @@ Route::get('/', [StorefrontController::class, 'home'])->name('home');
 Route::name('storefront.')->group(function (): void {
     Route::get('/about', [StorefrontController::class, 'about'])->name('about');
     Route::get('/services', [StorefrontController::class, 'services'])->name('services');
+    Route::get('/services/{service}', [StorefrontController::class, 'service'])->name('service');
     Route::get('/shop', [StorefrontController::class, 'shop'])->name('shop');
     Route::get('/shop/{product:slug}', [StorefrontController::class, 'product'])->name('product');
     Route::get('/blog', [StorefrontController::class, 'blog'])->name('blog');

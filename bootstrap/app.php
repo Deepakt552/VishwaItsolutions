@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\RedirectStorefrontHostname;
 use App\Http\Middleware\ServeMarkdownForAgents;
 use App\Http\Middleware\SetStorefrontLanguage;
 use App\Http\Middleware\TrackWebsiteVisit;
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->prepend(RedirectStorefrontHostname::class);
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         $middleware->web(append: [

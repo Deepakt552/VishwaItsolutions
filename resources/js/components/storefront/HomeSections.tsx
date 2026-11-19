@@ -16,6 +16,7 @@ import { useSiteText } from '@/lib/site-text';
 import { useLiveReviews } from '@/lib/use-live-reviews';
 import type { ReviewAvailability } from '@/lib/use-live-reviews';
 import { contact, services, shop } from '@/routes/storefront';
+import type { RepairServiceLink } from '@/types/storefront';
 import { business, directions, justdialListing, mapsListing } from './business';
 import { Chat } from './catalog';
 import MotionPattern, { movePattern, resetPattern } from './motion-pattern';
@@ -149,7 +150,9 @@ export function Hero({
                     <h1 className="hero-anim hero-anim-2">
                         {t('heroTitle')} <em>{t('heroAccent')}</em>
                     </h1>
-                    <p className="hero-anim hero-anim-3">{t('heroCopy')}</p>
+                    <p className="hero-anim hero-anim-3">
+                        {t('heroServiceArea')}
+                    </p>
                     <div className="actions hero-anim hero-anim-4">
                         <Chat
                             className="button hero-cta-primary"
@@ -247,7 +250,23 @@ export function ServiceIcon({ name }: { name: string }) {
     );
 }
 
-export function Services() {
+export function RepairServiceLinks({ links }: { links: RepairServiceLink[] }) {
+    return (
+        <nav className="service-jump" aria-label="Repair services">
+            {links.map(({ name, url }) => (
+                <Link key={url} href={url}>
+                    {name}
+                </Link>
+            ))}
+        </nav>
+    );
+}
+
+export function Services({
+    repairServices,
+}: {
+    repairServices: RepairServiceLink[];
+}) {
     const { t } = useSiteText();
 
     return (
@@ -259,6 +278,7 @@ export function Services() {
                         {t('allServices')}
                     </Link>
                 </Reveal>
+                <RepairServiceLinks links={repairServices} />
                 <div className="service-grid">
                     {servicesList
                         .slice(0, 4)

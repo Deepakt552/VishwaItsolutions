@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react';
 import { Chat } from '@/components/storefront/catalog';
 import {
+    RepairServiceLinks,
     ServiceAreas,
     ServiceIcon,
     SpecialistRepairs,
@@ -10,8 +11,13 @@ import PageHeader from '@/components/storefront/PageHeader';
 import Reveal from '@/components/storefront/Reveal';
 import { servicesList } from '@/components/storefront/service-list';
 import { useSiteText } from '@/lib/site-text';
+import type { RepairServiceLink } from '@/types/storefront';
 
-export default function ServicesPage() {
+export default function ServicesPage({
+    repairServices,
+}: {
+    repairServices: RepairServiceLink[];
+}) {
     const { t } = useSiteText();
     const coreServices = servicesList.slice(0, 4);
     const officeService = servicesList[4];
@@ -24,16 +30,16 @@ export default function ServicesPage() {
                 title={t('serviceTitle')}
                 description={t('serviceIntro')}
                 footer={
-                    <nav
-                        className="service-jump"
-                        aria-label={t('serviceJump')}
-                    >
-                        {servicesList.map((service) => (
-                            <a key={service.id} href={'#' + service.id}>
-                                {t(service.title)}
-                            </a>
-                        ))}
-                    </nav>
+                    <>
+                        <RepairServiceLinks links={repairServices} />
+                        <nav className="service-jump" aria-label={t('serviceJump')}>
+                            {servicesList.map((service) => (
+                                <a key={service.id} href={'#' + service.id}>
+                                    {t(service.title)}
+                                </a>
+                            ))}
+                        </nav>
+                    </>
                 }
             />
             <SpecialistRepairs />

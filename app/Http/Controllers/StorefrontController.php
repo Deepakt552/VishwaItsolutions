@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Services\ContentMedia;
 use App\Services\LiveReviews;
 use App\Services\ProductCatalog;
+use App\Services\RepairServices;
 use App\Services\Seo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -50,13 +51,13 @@ class StorefrontController extends Controller
 
         $businessNode = [
             '@type' => ['LocalBusiness', 'ComputerStore'],
-            '@id' => route('home').'#business',
-            'name' => 'Vishwa IT Solutions',
-            'alternateName' => 'Vishwa IT Solutions Laptop, PC & MacBook Repair',
-            'description' => 'Top-rated laptop, PC, MacBook, All-in-One system and chip-level motherboard repair lab serving Palghar, Vasai-Virar, Nalasopara, and Mumbai Western & Central Line. ₹350 visiting charge includes software repairs.',
-            'url' => route('home'),
+            '@id' => Seo::businessId(),
+            'name' => Seo::BUSINESS_NAME,
+            'description' => 'Computer repair workshop in Nalasopara East serving Vasai-Virar and nearby areas, with laptop, desktop, MacBook and motherboard repair, data recovery and office IT support.',
+            'url' => Seo::homeUrl(),
             'image' => url('/social-preview.jpg'),
-            'telephone' => '+917666704188',
+            'logo' => url('/vishwa-logo.svg'),
+            'telephone' => Seo::BUSINESS_PHONE,
             'priceRange' => '₹350+',
             'areaServed' => $serviceAreas,
             'geo' => [
@@ -81,10 +82,10 @@ class StorefrontController extends Controller
                 'addressCountry' => 'IN',
             ],
             'sameAs' => [
-                'https://www.justdial.com/Palghar/Vishwa-It-Solutions-Near-Rambharose-Hotel-Nalasopara-East/022PXX22-XX22-211220161254-E5C8_BZDET',
-                'https://www.google.com/maps/search/?api=1&query=Vishwa+IT+Solutions%2C+Nalasopara+East%2C+Vasai-Virar',
-                'https://wa.me/917666704188',
+                Seo::GOOGLE_PROFILE,
+                Seo::JUSTDIAL_PROFILE,
             ],
+            'hasMap' => Seo::GOOGLE_PROFILE,
             'hasOfferCatalog' => [
                 '@type' => 'OfferCatalog',
                 'name' => 'Computer, Laptop, MacBook & Chip-Level Repair Services',
@@ -99,38 +100,21 @@ class StorefrontController extends Controller
             ],
         ];
 
-        $cachedReviews = Cache::get('live_reviews.payload');
-        if (is_array($cachedReviews)) {
-            $primaryFeed = ($cachedReviews['google']['status'] ?? null) === 'live'
-                ? $cachedReviews['google']
-                : (($cachedReviews['justdial']['status'] ?? null) === 'live' ? $cachedReviews['justdial'] : null);
-
-            if (is_array($primaryFeed) && ($primaryFeed['rating'] ?? null) !== null && ($primaryFeed['count'] ?? null) !== null && $primaryFeed['count'] > 0) {
-                $businessNode['aggregateRating'] = [
-                    '@type' => 'AggregateRating',
-                    'ratingValue' => round((float) $primaryFeed['rating'], 1),
-                    'reviewCount' => (int) $primaryFeed['count'],
-                    'bestRating' => 5,
-                    'worstRating' => 1,
-                ];
-            }
-        }
-
         $graph = [
             $businessNode,
             [
                 '@type' => 'WebSite',
-                '@id' => route('home').'#website',
-                'name' => 'Vishwa IT Solutions',
-                'url' => route('home'),
+                '@id' => Seo::homeUrl().'#website',
+                'name' => Seo::BUSINESS_NAME,
+                'url' => Seo::homeUrl(),
                 'inLanguage' => ['en-IN', 'mr-IN', 'gu-IN'],
-                'publisher' => ['@id' => route('home').'#business'],
+                'publisher' => ['@id' => Seo::businessId()],
             ],
             [
                 '@type' => 'Service',
                 'name' => 'Laptop, MacBook, Chip-Level & All-in-One PC Repair in Mumbai & Palghar',
                 'serviceType' => 'Computer Repair and IT Support',
-                'provider' => ['@id' => route('home').'#business'],
+                'provider' => ['@id' => Seo::businessId()],
                 'areaServed' => $serviceAreas,
                 'offers' => [
                     '@type' => 'Offer',
@@ -138,43 +122,6 @@ class StorefrontController extends Controller
                     'price' => '350',
                     'priceCurrency' => 'INR',
                     'description' => '₹350 visiting charge includes diagnosis and repair of any software-related problem. Hardware replacement parts are quoted separately.',
-                ],
-            ],
-            [
-                '@type' => 'FAQPage',
-                'mainEntity' => [
-                    [
-                        '@type' => 'Question',
-                        'name' => 'What are the visiting and repair charges?',
-                        'acceptedAnswer' => [
-                            '@type' => 'Answer',
-                            'text' => 'Our visiting charge is ₹350, which includes repairing any software-related problem. If there is a hardware fault, you only pay the cost of the required parts.',
-                        ],
-                    ],
-                    [
-                        '@type' => 'Question',
-                        'name' => 'Do you repair MacBooks, All-in-One PCs, and chip-level faults?',
-                        'acceptedAnswer' => [
-                            '@type' => 'Answer',
-                            'text' => 'Yes. We handle chip-level motherboard repairing, MacBook repairs, All-in-One (AIO) systems, and all major Windows laptops and desktops across Mumbai Western Line, Central Line, Vasai-Virar, and Palghar.',
-                        ],
-                    ],
-                    [
-                        '@type' => 'Question',
-                        'name' => 'Which areas in Mumbai and Palghar do you serve?',
-                        'acceptedAnswer' => [
-                            '@type' => 'Answer',
-                            'text' => 'We serve Nalasopara East & West, Vasai, Virar, Palghar, Mumbai Western Line (Mira Road, Bhayandar, Borivali, Kandivali, Malad, Andheri, Bandra), and Mumbai Central Line (Thane, Mulund, Ghatkopar, Dadar, Kalyan, Dombivli).',
-                        ],
-                    ],
-                    [
-                        '@type' => 'Question',
-                        'name' => 'Do you offer office maintenance?',
-                        'acceptedAnswer' => [
-                            '@type' => 'Answer',
-                            'text' => 'Yes. Tell us how many computers you have and what ongoing IT maintenance you need.',
-                        ],
-                    ],
                 ],
             ],
         ];
@@ -186,23 +133,24 @@ class StorefrontController extends Controller
                 'itemListElement' => array_map(fn (array $item, int $index): array => [
                     '@type' => 'ListItem',
                     'position' => $index + 1,
-                    'item' => [
-                        '@type' => 'Product',
-                        'name' => $item['name'],
-                        'url' => route('storefront.product', $item['slug']),
-                        'category' => $item['category'],
-                    ],
+                    'name' => $item['name'],
+                    'url' => route('storefront.product', $item['slug']),
                 ], $products, array_keys($products)),
             ];
         }
 
+        [$title, $description] = match (app()->getLocale()) {
+            'mr' => ['नालासोपारा पूर्व येथे लॅपटॉप आणि पीसी दुरुस्ती', 'वसई-विरारमधील नालासोपारा पूर्व येथे लॅपटॉप, MacBook आणि मदरबोर्ड दुरुस्ती, डेटा रिकव्हरी आणि ऑफिस आयटी सेवा.'],
+            'gu' => ['નાલાસોપારા પૂર્વમાં લેપટોપ અને પીસી રિપેર', 'વસઈ-વિરારના નાલાસોપારા પૂર્વમાં લેપટોપ, MacBook અને મધરબોર્ડ રિપેર, ડેટા રિકવરી અને ઓફિસ આઇટી સપોર્ટ.'],
+            default => ['Laptop & PC Repair in Nalasopara East', 'Visit our Nalasopara East workshop for laptop, PC and MacBook repairs, motherboard diagnostics, data recovery and office IT support in Vasai-Virar.'],
+        };
+
         return Inertia::render('storefront/home', [
-            'seo' => Seo::page('Top Rated Laptop & PC Repair in Mumbai & Palghar | Best MacBook & Data Recovery', 'Best laptop & PC repair in Mumbai & Palghar — chip-level motherboard repair, MacBook & All-in-One repair, data recovery from hard disk, SSD & SATA drives across Western Line, Central Line & Vasai-Virar. ₹350 visiting charge.', route('home'), schema: [
-                '@graph' => $graph,
-            ]),
+            'seo' => Seo::page($title, $description, Seo::homeUrl(), schema: ['@graph' => $graph]),
             'products' => $products,
             'posts' => $posts,
             'reviewsEnabled' => $reviews->availability(),
+            'repairServices' => RepairServices::links(),
         ]);
     }
 
@@ -220,10 +168,18 @@ class StorefrontController extends Controller
         $filters = $filters->validated();
         $query = Product::available();
         $catalog->filter($query, $filters);
+        $products = $query->orderByDesc('featured')->latest('id')->paginate(12, ProductCatalog::CARD_COLUMNS)->appends($filters);
+        $page = $products->currentPage();
+        abort_if($page > $products->lastPage(), 404);
 
         return Inertia::render('storefront/shop', [
-            'seo' => Seo::page('Pre-owned Computers & Accessories', 'Browse available laptops, desktops, workstations and accessories. Compare processor, RAM, storage and device condition.', route('storefront.shop', ['page' => $request->integer('page') > 1 ? $request->integer('page') : null]), noindex: count(array_filter($filters)) > 0),
-            'products' => ProductResource::collection($query->orderByDesc('featured')->latest('id')->paginate(12, ProductCatalog::CARD_COLUMNS)->appends($filters)),
+            'seo' => Seo::page(
+                'Pre-Owned Computers in Nalasopara'.($page > 1 ? ' · Page '.$page : ''),
+                'Browse available pre-owned laptops, desktops, workstations and accessories in Nalasopara East. Compare specs and condition before you enquire.',
+                route('storefront.shop', $page > 1 ? ['page' => $page] : []),
+                noindex: array_filter($filters) !== [],
+            ),
+            'products' => ProductResource::collection($products),
             'filters' => $filters ?: (object) [],
             'categories' => Product::CATEGORIES,
             'storageTypes' => Product::STORAGE_TYPES,
@@ -264,7 +220,7 @@ class StorefrontController extends Controller
         return Inertia::render('storefront/product', [
             'seo' => Seo::page($product->name, Str::limit($schema['description'], 165), $url, $images[0] ?? null, 'product', [
                 '@graph' => [$schema, Seo::breadcrumbs([
-                    ['name' => 'Home', 'url' => route('home')],
+                    ['name' => 'Home', 'url' => Seo::homeUrl()],
                     ['name' => 'Shop', 'url' => route('storefront.shop')],
                     ['name' => $product->name, 'url' => $url],
                 ])],
@@ -274,11 +230,19 @@ class StorefrontController extends Controller
         ]);
     }
 
-    public function blog(Request $request): Response
+    public function blog(): Response
     {
+        $posts = Post::published()->latest('published_at')->latest('id')->paginate(9, self::POST_CARDS)->through($this->articleCard(...));
+        $page = $posts->currentPage();
+        abort_if($page > $posts->lastPage(), 404);
+
         return Inertia::render('storefront/blog', [
-            'seo' => Seo::page('IT Advice, Buying Guides & Repair Tips', 'Read practical advice on computer repairs, upgrades, maintenance and buying pre-owned devices from Vishwa IT Solutions.', route('storefront.blog', ['page' => $request->integer('page') > 1 ? $request->integer('page') : null])),
-            'posts' => Post::published()->latest('published_at')->latest('id')->paginate(9, self::POST_CARDS)->through($this->articleCard(...)),
+            'seo' => Seo::page(
+                'Computer Repair Guides & IT Advice'.($page > 1 ? ' · Page '.$page : ''),
+                'Read practical advice on computer repairs, upgrades, maintenance and buying pre-owned devices from Vishwa IT Solutions.',
+                route('storefront.blog', $page > 1 ? ['page' => $page] : []),
+            ),
+            'posts' => $posts,
         ]);
     }
 
@@ -304,9 +268,9 @@ class StorefrontController extends Controller
                     'dateModified' => $post->updated_at?->toIso8601String(),
                     'image' => url($image ?? '/social-preview.jpg'),
                     'mainEntityOfPage' => $url,
-                    'author' => ['@type' => 'Organization', 'name' => 'Vishwa IT Solutions', 'url' => route('home')],
+                    'author' => ['@type' => 'Organization', '@id' => Seo::businessId(), 'name' => Seo::BUSINESS_NAME, 'url' => Seo::homeUrl()],
                 ], Seo::breadcrumbs([
-                    ['name' => 'Home', 'url' => route('home')],
+                    ['name' => 'Home', 'url' => Seo::homeUrl()],
                     ['name' => 'Blog', 'url' => route('storefront.blog')],
                     ['name' => $post->title, 'url' => $url],
                 ])],
@@ -319,10 +283,10 @@ class StorefrontController extends Controller
     public function contact(): Response
     {
         return Inertia::render('storefront/contact', [
-            'seo' => Seo::page('Contact and Visit Us', 'Contact Vishwa IT Solutions for computer repairs, maintenance, and pre-owned stock in Nalasopara East.', route('storefront.contact'), schema: [
+            'seo' => Seo::page('Contact Our Nalasopara East Workshop', 'Call or WhatsApp Vishwa IT Solutions in Hawai Pada, Nalasopara East to arrange a device repair, check workshop hours or ask about a technician visit.', route('storefront.contact'), schema: [
                 '@type' => 'ContactPage',
                 'url' => route('storefront.contact'),
-                'mainEntity' => ['@type' => 'LocalBusiness', 'name' => 'Vishwa IT Solutions', 'telephone' => '+917666704188'],
+                'mainEntity' => ['@id' => Seo::businessId()],
             ]),
         ]);
     }
@@ -332,7 +296,7 @@ class StorefrontController extends Controller
         $copy = match (app()->getLocale()) {
             'mr' => ['संगणक दुरुस्ती आणि आयटी सेवा', 'नालासोपारा पूर्व येथे लॅपटॉप दुरुस्ती, नेटवर्क सेटअप, डेटा रिकव्हरी आणि ऑफिस आयटी सेवा.'],
             'gu' => ['કમ્પ્યુટર રિપેર અને આઇટી સેવાઓ', 'નાલાસોપારા પૂર્વમાં લેપટોપ રિપેર, નેટવર્ક સેટઅપ, ડેટા રિકવરી અને ઓફિસ આઇટી સેવાઓ.'],
-            default => ['Computer Repair and IT Services', 'Laptop repair, network setup, data recovery and office IT support in Nalasopara East.'],
+            default => ['Computer Repair & IT Services in Vasai-Virar', 'Explore laptop and MacBook repair, data recovery, network setup and office IT maintenance from our Nalasopara East workshop.'],
         };
 
         return Inertia::render('storefront/services', [
@@ -340,27 +304,49 @@ class StorefrontController extends Controller
                 '@type' => 'Service',
                 'name' => $copy[0],
                 'description' => $copy[1],
-                'provider' => ['@type' => 'LocalBusiness', 'name' => 'Vishwa IT Solutions', 'url' => route('home')],
-                'areaServed' => 'Nalasopara East',
+                'provider' => ['@id' => Seo::businessId()],
+                'areaServed' => 'Vasai-Virar',
             ]),
+            'repairServices' => RepairServices::links(),
+        ]);
+    }
+
+    public function service(string $service): Response
+    {
+        $details = RepairServices::all()[$service] ?? abort(404);
+        $url = route('storefront.service', $service);
+
+        return Inertia::render('storefront/service', [
+            'seo' => Seo::page($details['title'], $details['description'], $url, $details['image'], schema: [
+                '@graph' => [[
+                    '@type' => 'Service',
+                    'name' => $details['name'],
+                    'description' => $details['description'],
+                    'url' => $url,
+                    'provider' => ['@id' => Seo::businessId()],
+                    'areaServed' => ['@type' => 'City', 'name' => 'Vasai-Virar'],
+                ], Seo::breadcrumbs([
+                    ['name' => 'Home', 'url' => Seo::homeUrl()],
+                    ['name' => 'Services', 'url' => route('storefront.services')],
+                    ['name' => $details['name'], 'url' => $url],
+                ])],
+            ], imageAlt: $details['name'].' at Vishwa IT Solutions'),
+            'service' => [
+                'title' => $details['title'],
+                'description' => $details['description'],
+                'sections' => $details['sections'],
+            ],
+            'relatedServices' => array_values(array_filter(RepairServices::links(), fn (array $link): bool => $link['url'] !== $url)),
         ]);
     }
 
     public function about(): Response
     {
         return Inertia::render('storefront/about', [
-            'seo' => Seo::page('About Vishwa IT Solutions', 'Learn about Vishwa IT Solutions — chip-level laptop repair, MacBook & All-in-One service, office IT support, and tested pre-owned computers in Nalasopara East.', route('storefront.about'), schema: [
+            'seo' => Seo::page('About Our Computer Repair Workshop', 'Meet the team at Vishwa IT Solutions in Nalasopara East. We repair computers and support businesses across Vasai-Virar and nearby areas.', route('storefront.about'), schema: [
                 '@type' => 'AboutPage',
                 'url' => route('storefront.about'),
-                'mainEntity' => [
-                    '@type' => 'LocalBusiness',
-                    'name' => 'Vishwa IT Solutions',
-                    'telephone' => '+917666704188',
-                    'sameAs' => [
-                        'https://www.justdial.com/Palghar/Vishwa-It-Solutions-Near-Rambharose-Hotel-Nalasopara-East/022PXX22-XX22-211220161254-E5C8_BZDET',
-                        'https://www.google.com/maps/search/?api=1&query=Vishwa+IT+Solutions%2C+Nalasopara+East%2C+Vasai-Virar',
-                    ],
-                ],
+                'mainEntity' => ['@id' => Seo::businessId()],
             ]),
         ]);
     }
@@ -485,29 +471,28 @@ class StorefrontController extends Controller
 
     public function sitemap(): HttpResponse
     {
-        $today = now()->toDateString();
-        $latestProduct = Product::available()->max('updated_at');
-        $latestPost = Post::published()->max('updated_at');
-        $shopUpdated = is_string($latestProduct) ? substr($latestProduct, 0, 10) : $today;
-        $blogUpdated = is_string($latestPost) ? substr($latestPost, 0, 10) : $today;
-
         $urls = [
-            ['loc' => route('home'), 'updated' => $today],
-            ['loc' => route('storefront.about'), 'updated' => $today],
-            ['loc' => route('storefront.services'), 'updated' => $today],
-            ['loc' => route('storefront.shop'), 'updated' => $shopUpdated],
-            ['loc' => route('storefront.blog'), 'updated' => $blogUpdated],
-            ['loc' => route('storefront.contact'), 'updated' => $today],
-            ['loc' => route('storefront.terms'), 'updated' => $today],
-            ['loc' => route('storefront.review-sources'), 'updated' => $today],
+            ['loc' => Seo::homeUrl()],
+            ['loc' => route('storefront.about')],
+            ['loc' => route('storefront.services')],
+            ['loc' => route('storefront.shop')],
+            ['loc' => route('storefront.blog')],
+            ['loc' => route('storefront.contact')],
+            ['loc' => route('storefront.terms')],
+            ['loc' => route('storefront.review-sources')],
         ];
 
-        foreach (Product::available()->select(['id', 'slug', 'updated_at'])->lazyById() as $product) {
-            $urls[] = ['loc' => route('storefront.product', $product->slug), 'updated' => $product->updated_at?->toDateString() ?? $today];
+        foreach (RepairServices::links() as $service) {
+            $urls[] = ['loc' => $service['url']];
         }
 
-        foreach (Post::published()->select(['id', 'slug', 'updated_at'])->lazyById() as $post) {
-            $urls[] = ['loc' => route('storefront.article', $post->slug), 'updated' => $post->updated_at?->toDateString() ?? $today];
+        foreach (Product::available()->select(['id', 'slug', 'updated_at'])->lazyById() as $product) {
+            $urls[] = ['loc' => route('storefront.product', $product->slug), 'updated' => $product->updated_at?->toAtomString()];
+        }
+
+        foreach (Post::published()->select(['id', 'slug', 'published_at', 'updated_at'])->lazyById() as $post) {
+            $lastModified = $post->updated_at?->max($post->published_at) ?? $post->published_at;
+            $urls[] = ['loc' => route('storefront.article', $post->slug), 'updated' => $lastModified?->toAtomString()];
         }
 
         return response()->view('sitemap', ['urls' => $urls], headers: ['Content-Type' => 'application/xml; charset=UTF-8']);

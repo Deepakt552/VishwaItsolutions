@@ -50,6 +50,11 @@ export type ResourcePage<T> = {
     meta: Omit<PageResult<T>, 'data'>;
 };
 
+export type RepairServiceLink = {
+    name: string;
+    url: string;
+};
+
 export type Seo = {
     title: string;
     description: string;

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@php($seo = $page['props']['seo'] ?? null)
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
     <head>
         <meta charset="utf-8">
@@ -39,16 +40,10 @@
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         <x-inertia::head>
-            @php($seo = $page['props']['seo'] ?? null)
             <title data-inertia>{{ $seo ? $seo['title'].' | Vishwa IT Solutions' : 'Vishwa IT Solutions' }}</title>
             @if ($seo)
                 <meta data-inertia="description" name="description" content="{{ $seo['description'] }}">
                 <meta data-inertia="robots" name="robots" content="{{ $seo['robots'] }}">
-                <meta name="keywords" content="top rated laptop PC repair in Mumbai, best laptop repair Mumbai, best laptop repair Palghar, MacBook repair Mumbai, chip level motherboard repair Nalasopara, All-in-One PC repair Vasai Virar, data recovery from hard disk SSD SATA drive Mumbai, NVMe HDD data recovery Palghar, computer repair Western Line Mumbai, computer repair Central Line Mumbai, IT support Thane Borivali Andheri, doorstep laptop repair 350 rs">
-                <meta name="geo.region" content="IN-MH">
-                <meta name="geo.placename" content="Nalasopara East, Palghar, Mumbai, Maharashtra">
-                <meta name="geo.position" content="19.4189;72.8190">
-                <meta name="ICBM" content="19.4189, 72.8190">
                 <link data-inertia="canonical" rel="canonical" href="{{ $seo['canonical'] }}">
                 <meta data-inertia="og:title" property="og:title" content="{{ $seo['title'] }}">
                 <meta data-inertia="og:description" property="og:description" content="{{ $seo['description'] }}">
@@ -78,6 +73,22 @@
                 <main>
                     <h1>{{ $seo['title'] }}</h1>
                     <p>{{ $seo['description'] }}</p>
+                @if ($page['component'] === 'storefront/service')
+                    @foreach ($page['props']['service']['sections'] as $heading => $copy)
+                        <h2>{{ $heading }}</h2>
+                        <p>{{ $copy }}</p>
+                    @endforeach
+                    <p><a href="tel:{{ \App\Services\Seo::BUSINESS_PHONE }}">Call +91 76667 04188</a> or <a href="{{ route('storefront.contact') }}">contact the Nalasopara East workshop</a>.</p>
+                @endif
+                @if (!empty($page['props']['repairServices']) || !empty($page['props']['relatedServices']))
+                    <nav aria-label="Repair services">
+                        <ul>
+                            @foreach (($page['props']['repairServices'] ?? $page['props']['relatedServices']) as $serviceLink)
+                                <li><a href="{{ $serviceLink['url'] }}">{{ $serviceLink['name'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    </nav>
+                @endif
                     <nav aria-label="Primary links">
                         <a href="{{ route('home') }}">Home</a>
                         <a href="{{ route('storefront.about') }}">About</a>

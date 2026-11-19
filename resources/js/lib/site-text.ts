@@ -39,6 +39,11 @@ const messages = {
         'संगणक दुरुस्ती, ऑफिस आयटी मदत आणि वापरलेले संगणक.',
         'કમ્પ્યુટર રિપેર, ઓફિસ આઇટી સપોર્ટ અને વપરાયેલા કમ્પ્યુટર.',
     ],
+    heroServiceArea: [
+        'Bring your device to our workshop or schedule a technician visit anywhere in Mumbai.',
+        'तुमचे उपकरण आमच्या वर्कशॉपमध्ये आणा किंवा मुंबईत कुठेही तंत्रज्ञाची भेट ठरवा.',
+        'તમારું ઉપકરણ અમારી વર્કશોપમાં લાવો અથવા મુંબઈમાં ગમે ત્યાં ટેક્નિશિયનની મુલાકાત બુક કરો.',
+    ],
     heroPhoto: [
         'A technician repairing a laptop motherboard',
         'लॅपटॉपचा मदरबोर्ड दुरुस्त करताना तंत्रज्ञ',

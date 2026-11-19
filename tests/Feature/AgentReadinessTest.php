@@ -7,7 +7,7 @@ test('robots.txt declares Content-Signal directive', function () {
         ->assertSee('Sitemap:', false);
 });
 
-test('sitemap.xml includes lastmod dates for every URL', function () {
+test('sitemap.xml lists public pages without invented modification dates', function () {
     $response = $this->get('/sitemap.xml')->assertOk();
     $xml = simplexml_load_string((string) $response->getContent());
 
@@ -15,7 +15,7 @@ test('sitemap.xml includes lastmod dates for every URL', function () {
     expect(count($xml->url))->toBeGreaterThanOrEqual(8);
 
     foreach ($xml->url as $entry) {
-        expect((string) $entry->lastmod)->toMatch('/^\d{4}-\d{2}-\d{2}$/');
+        expect(isset($entry->lastmod))->toBeFalse();
     }
 });
 
@@ -32,9 +32,7 @@ test('homepage initial HTML includes h1, about/contact/terms links, sameAs and m
         ->toContain('"LocalBusiness"')
         ->toContain('"ComputerStore"')
         ->toContain('"@type":"WebSite"')
-        ->toContain('"@type":"Service"')
-        ->toContain('"@type":"FAQPage"')
-        ->toContain('geo.region');
+        ->toContain('"@type":"Service"');
 });
 
 test('about and terms pages return HTTP 200', function () {
