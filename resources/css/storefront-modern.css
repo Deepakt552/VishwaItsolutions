@@ -547,11 +547,16 @@
     gap: clamp(1.6rem, 4.5vw, 4.2rem);
 }
 
+.page-header-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 .page-header-crumb {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.85rem;
     font-size: 0.85rem;
     font-weight: 600;
     color: rgba(245, 230, 237, 0.72);
