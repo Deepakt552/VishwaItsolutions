@@ -1,0 +1,1637 @@
+/* ==========================================================================
+   Vishwa IT Solutions — Modern Storefront Polish, Full-Width Hero & Motion
+   ========================================================================== */
+
+/* 1. Sticky Glassmorphic Header & Topbar
+   -------------------------------------------------------------------------- */
+.vishwa-site .topbar {
+    background: linear-gradient(90deg, #220e18 0%, #341625 50%, #220e18 100%);
+    border-bottom: 1px solid rgba(241, 199, 134, 0.14);
+}
+.vishwa-site .top-inner a {
+    transition: color 180ms ease, opacity 180ms ease;
+    opacity: 0.92;
+}
+.vishwa-site .top-inner a:hover {
+    opacity: 1;
+    color: var(--gold);
+    text-decoration: none;
+}
+
+.vishwa-site .header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 253, 252, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(99, 36, 59, 0.1);
+    transition:
+        background-color 240ms ease,
+        box-shadow 240ms ease,
+        border-color 240ms ease;
+}
+.vishwa-site .header.is-scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom-color: rgba(99, 36, 59, 0.14);
+    box-shadow: 0 10px 30px rgba(50, 23, 35, 0.08);
+}
+.vishwa-site .header-inner {
+    min-height: 78px;
+    transition: min-height 220ms ease;
+}
+.vishwa-site .header.is-scrolled .header-inner {
+    min-height: 68px;
+}
+.vishwa-site .nav a {
+    position: relative;
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+    min-height: 40px;
+    transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease;
+}
+.vishwa-site .nav a:hover {
+    background: rgba(99, 36, 59, 0.07);
+    color: var(--wine);
+}
+.vishwa-site .nav [aria-current='page'] {
+    background: linear-gradient(135deg, #63243b 0%, #7d2f4c 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(99, 36, 59, 0.24);
+}
+.vishwa-site .nav [aria-current='page']:hover {
+    background: linear-gradient(135deg, #6e2842 0%, #893554 100%);
+    color: #fff;
+}
+.vishwa-site .header-chat {
+    border-radius: 999px;
+    padding-inline: 1.25rem;
+    box-shadow: 0 6px 18px rgba(99, 36, 59, 0.22);
+}
+
+/* 2. Full-Width Modern Hero Section
+   -------------------------------------------------------------------------- */
+.modern-hero.hero-full {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            ellipse 70% 60% at 85% 20%,
+            rgba(139, 52, 86, 0.46),
+            transparent 68%
+        ),
+        radial-gradient(
+            ellipse 55% 55% at 10% 85%,
+            rgba(241, 199, 134, 0.14),
+            transparent 65%
+        ),
+        linear-gradient(135deg, #1d0c14 0%, #341524 52%, #230f1a 100%);
+    color: #fff9fb;
+    border-bottom: 1px solid rgba(241, 199, 134, 0.18);
+}
+
+.modern-hero.hero-full .motion-pattern {
+    color: #f1c786;
+}
+.modern-hero.hero-full .motion-pattern span {
+    opacity: 0.14;
+}
+
+.hero-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.48;
+}
+.hero-orb-1 {
+    width: clamp(20rem, 42vw, 40rem);
+    height: clamp(20rem, 42vw, 40rem);
+    top: -18%;
+    right: 6%;
+    background: radial-gradient(
+        circle,
+        rgba(241, 199, 134, 0.34),
+        rgba(128, 43, 74, 0.08) 70%
+    );
+}
+.hero-orb-2 {
+    width: clamp(16rem, 34vw, 32rem);
+    height: clamp(16rem, 34vw, 32rem);
+    bottom: -24%;
+    left: -8%;
+    background: radial-gradient(
+        circle,
+        rgba(155, 58, 95, 0.38),
+        transparent 72%
+    );
+}
+.hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(
+        ellipse 82% 76% at 52% 45%,
+        #000 35%,
+        transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+        ellipse 82% 76% at 52% 45%,
+        #000 35%,
+        transparent 100%
+    );
+}
+
+.hero-wide-wrap {
+    width: min(100% - 64px, 1380px);
+    margin-inline: auto;
+}
+
+.modern-hero.hero-full .modern-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.96fr);
+    gap: clamp(2rem, 5vw, 5.2rem);
+    align-items: center;
+    min-height: clamp(600px, calc(100svh - 122px), 840px);
+    padding-block: clamp(2.8rem, 5.5vw, 5.2rem);
+}
+
+.hero-eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.42rem 0.95rem;
+    margin-bottom: 1.35rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(241, 199, 134, 0.32);
+    color: #f8e5c4;
+    font-size: 0.875rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(10px);
+}
+.hero-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+}
+
+.modern-hero.hero-full .modern-hero-copy h1 {
+    color: #ffffff;
+    font-size: clamp(2.65rem, 4.9vw, 4.95rem);
+    line-height: 1.03;
+    letter-spacing: -0.055em;
+    font-weight: 800;
+    margin-bottom: 1.15rem;
+}
+.modern-hero.hero-full .modern-hero-copy em {
+    display: block;
+    margin-top: 0.1em;
+    font-style: normal;
+    background: linear-gradient(115deg, #fff3dc 0%, #f1c786 48%, #dfa24e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.modern-hero.hero-full .modern-hero-copy > p {
+    color: rgba(248, 236, 241, 0.86);
+    font-size: clamp(1.04rem, 1.55vw, 1.24rem);
+    line-height: 1.62;
+    max-width: 44ch;
+    margin-bottom: 1.75rem;
+}
+
+.hero-cta-primary {
+    background: linear-gradient(135deg, #f6d59e 0%, #e7b56a 100%);
+    color: #241019;
+    border-radius: 12px;
+    padding: 0.78rem 1.45rem;
+    min-height: 52px;
+    font-weight: 760;
+    box-shadow: 0 12px 28px rgba(241, 199, 134, 0.24);
+}
+.hero-cta-primary:hover {
+    background: linear-gradient(135deg, #ffe2b3 0%, #f1c37c 100%);
+    box-shadow: 0 16px 34px rgba(241, 199, 134, 0.34);
+}
+
+.hero-cta-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff8fa;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 12px;
+    padding: 0.78rem 1.35rem;
+    min-height: 52px;
+    backdrop-filter: blur(10px);
+}
+.hero-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(241, 199, 134, 0.52);
+}
+.hero-cta-secondary .cta-arrow {
+    transition: transform 200ms ease;
+}
+.hero-cta-secondary:hover .cta-arrow {
+    transform: translate(2px, -2px);
+}
+
+/* Google & Justdial Star Rating Dock in Hero */
+.hero-trust-dock {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    max-width: 520px;
+    margin-top: 2rem;
+}
+.hero-review-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.82rem 0.95rem;
+    border-radius: 16px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.075);
+    border: 1px solid rgba(241, 199, 134, 0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 12px 30px rgba(15, 5, 10, 0.24);
+    transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background-color 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease;
+}
+.hero-review-badge:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.13);
+    border-color: rgba(241, 199, 134, 0.55);
+    box-shadow: 0 18px 36px rgba(15, 5, 10, 0.34);
+}
+.hero-review-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+.hero-review-icon.justdial {
+    background: #0076d7;
+}
+.hero-review-body {
+    min-width: 0;
+    flex: 1;
+}
+.hero-review-top {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.18rem;
+}
+.hero-review-top strong {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 760;
+    letter-spacing: -0.01em;
+}
+.hero-review-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.08rem 0.45rem;
+    border-radius: 999px;
+    background: rgba(74, 222, 128, 0.16);
+    border: 1px solid rgba(74, 222, 128, 0.32);
+    color: #bbf7d0;
+    font-size: 0.7rem;
+    font-weight: 740;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.hero-review-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+}
+.hero-review-ext {
+    margin-left: auto;
+    color: rgba(241, 199, 134, 0.75);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.hero-review-badge:hover .hero-review-ext {
+    transform: translate(2px, -2px);
+    color: #f1c786;
+}
+.hero-stars {
+    color: #fbbf24;
+    gap: 0.14rem;
+}
+.hero-review-rating-line {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.32rem;
+    margin-top: 0.24rem;
+}
+.hero-out-of {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.15rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+}
+.hero-out-of strong {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fde68a;
+    letter-spacing: -0.02em;
+}
+.hero-out-of span {
+    color: rgba(244, 229, 236, 0.72);
+    font-size: 0.76rem;
+    font-weight: 640;
+}
+.hero-review-meta {
+    display: inline-block;
+    color: rgba(244, 229, 236, 0.78);
+    font-size: 0.78rem;
+    font-weight: 560;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Hero Right Visual Stage */
+.hero-stage {
+    position: relative;
+    padding: 1.1rem 0.9rem 1.4rem;
+}
+.hero-stage-glow {
+    position: absolute;
+    inset: 6% 4%;
+    border-radius: 32px;
+    background: radial-gradient(
+        circle at 50% 40%,
+        rgba(241, 199, 134, 0.3),
+        rgba(128, 43, 74, 0.15) 60%,
+        transparent 80%
+    );
+    filter: blur(34px);
+    z-index: 0;
+    pointer-events: none;
+}
+.modern-hero.hero-full .modern-hero-media {
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(241, 199, 134, 0.34);
+    border-radius: 26px;
+    padding: 9px;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.04)
+    );
+    backdrop-filter: blur(12px);
+    box-shadow: 0 30px 70px rgba(10, 3, 7, 0.55);
+    overflow: hidden;
+}
+.modern-hero.hero-full .modern-hero-media > img {
+    border-radius: 18px;
+    aspect-ratio: 1.24;
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hero-stage:hover .modern-hero-media > img {
+    transform: scale(1.03);
+}
+.hero-media-scrim {
+    position: absolute;
+    inset: 9px;
+    border-radius: 18px;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 56%,
+        rgba(24, 10, 17, 0.52) 100%
+    );
+}
+
+.hero-float-chip {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.72rem 0.95rem;
+    border-radius: 15px;
+    text-decoration: none;
+    background: rgba(31, 14, 22, 0.84);
+    border: 1px solid rgba(241, 199, 134, 0.34);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 16px 36px rgba(12, 4, 8, 0.42);
+    color: #fff;
+}
+.hero-float-chip.chip-top {
+    top: 0;
+    right: -0.35rem;
+}
+.hero-float-chip.chip-bottom {
+    bottom: 0;
+    left: -0.35rem;
+    transition:
+        border-color 200ms ease,
+        background-color 200ms ease,
+        transform 200ms ease;
+}
+.hero-float-chip.chip-bottom:hover {
+    border-color: rgba(241, 199, 134, 0.72);
+    background: rgba(45, 20, 32, 0.94);
+}
+.hero-float-chip .chip-icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #f8dfb5;
+    flex-shrink: 0;
+}
+.hero-float-chip .chip-icon.gold {
+    background: linear-gradient(135deg, #f3cd90 0%, #d99b44 100%);
+    color: #241019;
+}
+.hero-float-chip strong {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 740;
+    line-height: 1.25;
+}
+.hero-float-chip span {
+    display: block;
+    font-size: 0.78rem;
+    color: rgba(245, 230, 237, 0.78);
+    line-height: 1.25;
+}
+
+/* 3. Unified Modern Page Headers for Other Pages
+   -------------------------------------------------------------------------- */
+.vishwa-page-header {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            ellipse 65% 65% at 82% 15%,
+            rgba(140, 52, 86, 0.45),
+            transparent 66%
+        ),
+        linear-gradient(135deg, #210e17 0%, #371727 55%, #26101b 100%);
+    color: #fff8fa;
+    padding-block: clamp(2.6rem, 5.2vw, 4.8rem);
+    border-bottom: 1px solid rgba(241, 199, 134, 0.18);
+}
+.vishwa-page-header .motion-pattern {
+    color: #f1c786;
+}
+.vishwa-page-header .motion-pattern span {
+    opacity: 0.13;
+}
+.page-header-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+        circle at 12% 90%,
+        rgba(241, 199, 134, 0.14),
+        transparent 45%
+    );
+}
+.page-header-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
+}
+
+.vishwa-page-header.has-aside .page-header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.86fr);
+    align-items: center;
+    gap: clamp(1.6rem, 4.5vw, 4.2rem);
+}
+
+.page-header-crumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(245, 230, 237, 0.72);
+}
+.page-header-crumb a {
+    text-decoration: none;
+    transition: color 160ms ease;
+}
+.page-header-crumb a:hover {
+    color: var(--gold);
+}
+.page-header-crumb [aria-current='page'] {
+    color: #f6d59e;
+}
+
+.page-header-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.34rem 0.85rem;
+    margin: 0 0 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(241, 199, 134, 0.32);
+    color: #f8e1b8;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    width: fit-content;
+}
+.page-header-pill .pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+}
+a.page-header-pill:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.vishwa-page-header h1 {
+    font-size: clamp(2.35rem, 5vw, 4.35rem);
+    line-height: 1.04;
+    letter-spacing: -0.055em;
+    font-weight: 800;
+    margin: 0 0 0.85rem;
+    color: #ffffff;
+    text-wrap: balance;
+}
+.page-header-lead {
+    color: rgba(247, 235, 241, 0.86);
+    font-size: clamp(1rem, 1.5vw, 1.18rem);
+    line-height: 1.6;
+    max-width: 50ch;
+    margin: 0;
+}
+.page-header-footer {
+    margin-top: 1.35rem;
+}
+.page-header-meta-time {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: rgba(241, 199, 134, 0.9);
+    font-weight: 600;
+}
+
+.page-header-media-frame {
+    padding: 7px;
+    border-radius: 20px;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.04)
+    );
+    border: 1px solid rgba(241, 199, 134, 0.3);
+    box-shadow: 0 22px 48px rgba(10, 3, 7, 0.45);
+}
+.page-header-media-frame .page-banner-image {
+    border: 0;
+    box-shadow: none;
+    border-radius: 14px;
+}
+
+/* Services Jump Pills inside dark PageHeader */
+.vishwa-page-header .service-jump {
+    margin-top: 0;
+    gap: 0.55rem;
+}
+.vishwa-page-header .service-jump a {
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(241, 199, 134, 0.28);
+    color: #fff7fa;
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+    min-height: 40px;
+    backdrop-filter: blur(8px);
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        transform 180ms ease;
+}
+.vishwa-page-header .service-jump a:hover {
+    background: rgba(241, 199, 134, 0.2);
+    border-color: var(--gold);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Contact action cards inside dark PageHeader */
+.vishwa-page-header .contact-call {
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(241, 199, 134, 0.3);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    transition:
+        transform 200ms ease,
+        background-color 200ms ease,
+        border-color 200ms ease;
+}
+.vishwa-page-header .contact-call:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+/* 4. Modern Cards, Sections & Interactive Polish
+   -------------------------------------------------------------------------- */
+.vishwa-site .service-gallery {
+    background: linear-gradient(180deg, #ffffff 0%, #fcf6f8 100%);
+}
+.vishwa-site .service-gallery .service-card {
+    border: 1px solid rgba(99, 36, 59, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(82, 33, 54, 0.05);
+    transition:
+        transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 240ms ease,
+        box-shadow 260ms ease;
+}
+.service-photo-wrap {
+    width: 100%;
+    overflow: hidden;
+}
+.vishwa-site .service-gallery .service-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(99, 36, 59, 0.28);
+    box-shadow: 0 22px 44px rgba(82, 33, 54, 0.12);
+}
+
+/* Maintenance Strip Banner */
+.home-maintenance {
+    background: transparent;
+    border-block: 0;
+    padding-block: clamp(1rem, 3vw, 2.2rem);
+}
+.home-maintenance .maintenance-strip {
+    padding: clamp(1.4rem, 3.2vw, 2.25rem) clamp(1.4rem, 3.6vw, 2.6rem);
+    border-radius: 22px;
+    background:
+        radial-gradient(
+            ellipse at 92% 20%,
+            rgba(241, 199, 134, 0.26),
+            transparent 55%
+        ),
+        linear-gradient(135deg, #fbf4f7 0%, #f8efe6 100%);
+    border: 1px solid #ead8df;
+    box-shadow: 0 14px 36px rgba(82, 33, 54, 0.06);
+}
+
+/* Product & Article Cards */
+.catalog-card {
+    border-radius: 20px;
+    border-color: rgba(99, 36, 59, 0.11);
+    box-shadow: 0 10px 28px rgba(82, 33, 54, 0.055);
+    transition:
+        transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 240ms ease,
+        box-shadow 260ms ease;
+}
+.catalog-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(99, 36, 59, 0.3);
+    box-shadow: 0 22px 46px rgba(82, 33, 54, 0.12);
+}
+.card-condition {
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 0.28rem 0.72rem;
+}
+
+/* Reviews Section Upgrade */
+.review-provider-card {
+    border-radius: 20px;
+    border-color: rgba(99, 36, 59, 0.12);
+    box-shadow: 0 12px 32px rgba(82, 33, 54, 0.06);
+    transition:
+        transform 240ms ease,
+        border-color 240ms ease,
+        box-shadow 240ms ease;
+}
+.review-provider-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(99, 36, 59, 0.28);
+    box-shadow: 0 18px 40px rgba(82, 33, 54, 0.11);
+}
+.review-provider-title > span.provider-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #ebdce2;
+    box-shadow: 0 4px 12px rgba(82, 33, 54, 0.08);
+}
+.review-provider-title > span.provider-logo.justdial {
+    background: #0076d7;
+    border-color: #0076d7;
+}
+.review-slide {
+    border-radius: 20px;
+    box-shadow: 0 14px 36px rgba(82, 33, 54, 0.07);
+}
+.live-stars {
+    color: #d98218;
+}
+
+/* Service Detail Grid View (Services Page) */
+.service-details-grid-section {
+    background: linear-gradient(180deg, #ffffff 0%, #fbf5f7 100%);
+    padding-block: clamp(2.4rem, 5vw, 4.5rem);
+}
+.services-grid-view {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.15rem, 2.4vw, 1.75rem);
+}
+.service-grid-card {
+    display: flex;
+    flex-direction: column;
+    scroll-margin-top: 5.5rem;
+    border-radius: 22px;
+    border: 1px solid rgba(99, 36, 59, 0.12);
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(82, 33, 54, 0.055);
+    transition:
+        transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 240ms ease,
+        box-shadow 260ms ease;
+}
+.service-grid-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(99, 36, 59, 0.28);
+    box-shadow: 0 24px 48px rgba(82, 33, 54, 0.12);
+}
+.service-grid-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.78;
+    background: #351926;
+}
+.service-grid-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.service-grid-card:hover .service-grid-media img {
+    transform: scale(1.05);
+}
+.service-grid-media-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(24, 10, 17, 0.06) 0%,
+        rgba(24, 10, 17, 0.45) 100%
+    );
+}
+.service-grid-step {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.28rem 0.72rem;
+    border-radius: 999px;
+    background: rgba(25, 10, 18, 0.74);
+    border: 1px solid rgba(241, 199, 134, 0.42);
+    backdrop-filter: blur(8px);
+    color: #f8e2bd;
+    font-size: 0.78rem;
+    font-weight: 760;
+    letter-spacing: 0.05em;
+}
+.service-grid-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.25rem, 2.6vw, 1.85rem);
+}
+.service-grid-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 0.85rem;
+}
+.service-grid-head .service-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    margin: 0;
+}
+.service-grid-head .service-icon img {
+    width: 32px;
+    height: 32px;
+}
+.vishwa-site .service-grid-head h2 {
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    margin: 0;
+}
+.service-grid-summary {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.58;
+    margin: 0 0 1.15rem;
+}
+.service-grid-points {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.45rem;
+    display: grid;
+    gap: 0.62rem;
+}
+.service-grid-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.94rem;
+    color: var(--ink);
+    line-height: 1.45;
+}
+.service-grid-points .point-check {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    background: #f6e7ee;
+    color: var(--wine);
+}
+.service-grid-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #f0e4e9;
+}
+.service-grid-cta {
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* Featured Office IT / AMC Spotlight Card */
+.service-grid-card.is-featured {
+    margin-top: clamp(1.25rem, 2.6vw, 1.85rem);
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    background:
+        radial-gradient(
+            ellipse 70% 80% at 90% 15%,
+            rgba(241, 199, 134, 0.18),
+            transparent 65%
+        ),
+        linear-gradient(135deg, #250f19 0%, #3d1829 55%, #2a111d 100%);
+    border-color: rgba(241, 199, 134, 0.28);
+    color: #fff8fa;
+    box-shadow: 0 22px 52px rgba(37, 15, 25, 0.24);
+}
+.service-grid-card.is-featured .service-grid-media {
+    aspect-ratio: auto;
+    min-height: 310px;
+}
+.service-grid-card.is-featured .service-grid-body {
+    padding: clamp(1.5rem, 3.4vw, 2.5rem);
+}
+.service-grid-card.is-featured .featured-tag {
+    display: inline-block;
+    margin-bottom: 0.3rem;
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 760;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.service-grid-card.is-featured h2 {
+    color: #ffffff;
+}
+.service-grid-card.is-featured .service-grid-summary {
+    color: rgba(248, 236, 241, 0.84);
+}
+.service-grid-card.is-featured .service-grid-points li {
+    color: #fff5f8;
+}
+.service-grid-card.is-featured .service-grid-points .point-check {
+    background: rgba(241, 199, 134, 0.2);
+    color: var(--gold);
+}
+.service-grid-card.is-featured .service-grid-footer {
+    border-top-color: rgba(241, 199, 134, 0.2);
+}
+
+/* Shop Category Rail & Sidebar */
+.shop-category-rail a {
+    border-radius: 999px;
+    padding: 0.48rem 1rem;
+    min-height: 44px;
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+.shop-category-rail a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 36, 59, 0.1);
+}
+
+/* Modern Common Questions (FAQ) Section */
+.vishwa-site .faq.faq-modern {
+    background: linear-gradient(180deg, #ffffff 0%, #fbf5f7 100%);
+    border-top: 1px solid #efe3e8;
+}
+.faq-modern-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(1.8rem, 5vw, 4.5rem);
+    align-items: start;
+}
+.faq-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: 0.9rem;
+    border-radius: 999px;
+    background: #f6e7ee;
+    color: var(--wine);
+    font-size: 0.82rem;
+    font-weight: 760;
+    letter-spacing: 0.02em;
+}
+.faq-subtitle {
+    margin: 0.85rem 0 1.45rem;
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    max-width: 38ch;
+}
+.faq-help-card {
+    padding: 1.35rem;
+    border-radius: 20px;
+    background:
+        radial-gradient(
+            ellipse at 95% 5%,
+            rgba(241, 199, 134, 0.22),
+            transparent 60%
+        ),
+        #ffffff;
+    border: 1px solid rgba(99, 36, 59, 0.13);
+    box-shadow: 0 12px 30px rgba(82, 33, 54, 0.06);
+}
+.vishwa-site .faq-help-card h3 {
+    font-size: 1.12rem;
+    margin: 0 0 0.35rem;
+    color: var(--wine-dark);
+}
+.faq-help-card p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+.faq-help-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+}
+.faq-help-actions .button {
+    border-radius: 11px;
+    min-height: 44px;
+    padding-inline: 1.1rem;
+    font-size: 0.92rem;
+}
+.faq-phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    color: var(--wine);
+    font-weight: 740;
+    font-size: 0.92rem;
+    text-decoration: none;
+}
+.faq-phone-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.faq-cards {
+    display: grid;
+    gap: 0.9rem;
+}
+.vishwa-site .faq-modern .faq-card {
+    position: relative;
+    border-radius: 18px;
+    border: 1px solid rgba(99, 36, 59, 0.12);
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(82, 33, 54, 0.045);
+    overflow: hidden;
+    transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms ease;
+}
+.vishwa-site .faq-modern .faq-card:hover {
+    border-color: rgba(99, 36, 59, 0.28);
+    box-shadow: 0 14px 32px rgba(82, 33, 54, 0.09);
+}
+.vishwa-site .faq-modern .faq-card[open] {
+    border-color: rgba(99, 36, 59, 0.32);
+    background: linear-gradient(180deg, #fffdfd 0%, #fdf8fa 100%);
+    box-shadow: 0 16px 36px rgba(82, 33, 54, 0.1);
+}
+.vishwa-site .faq-modern .faq-card[open]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #63243b 0%, #e6b369 100%);
+}
+.faq-card-summary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.9rem;
+    cursor: pointer;
+    list-style: none;
+    padding: 1.2rem 1.35rem;
+    color: var(--ink);
+    font-weight: 740;
+    font-size: 1.06rem;
+    line-height: 1.38;
+}
+.faq-card-summary::-webkit-details-marker {
+    display: none;
+}
+.faq-card-summary::after {
+    display: none;
+}
+.faq-num {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #f6e9ef;
+    color: var(--wine);
+    font-size: 0.82rem;
+    font-weight: 800;
+    transition: background-color 200ms ease, color 200ms ease;
+}
+.faq-card[open] .faq-num {
+    background: var(--wine);
+    color: #ffffff;
+}
+.faq-chevron {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #f8eff3;
+    color: var(--wine);
+    transition:
+        transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background-color 200ms ease;
+}
+.faq-card[open] .faq-chevron {
+    transform: rotate(180deg);
+    background: #f2dfe7;
+}
+.faq-card-body {
+    padding: 0 1.45rem 1.35rem 4.35rem;
+}
+.faq-card-body p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.65;
+}
+.faq-card-body a {
+    color: var(--wine);
+    font-weight: 700;
+    text-underline-offset: 3px;
+}
+
+/* Home Contact CTA Banner */
+.home-contact {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(135deg, #27101b 0%, #441b2e 52%, #2b111e 100%);
+}
+.home-contact-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(
+            ellipse 55% 80% at 86% 20%,
+            rgba(241, 199, 134, 0.2),
+            transparent 65%
+        ),
+        radial-gradient(
+            ellipse 45% 70% at 10% 80%,
+            rgba(161, 61, 100, 0.3),
+            transparent 65%
+        );
+}
+.home-contact-button {
+    border-radius: 12px;
+}
+
+/* Contact Page Form & Options */
+.contact-page .contact-option,
+.contact-page .contact-form {
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(82, 33, 54, 0.06);
+}
+.site-fields :is(input, select, textarea) {
+    border-radius: 10px;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+.site-fields :is(input, select, textarea):focus {
+    outline: none;
+    border-color: var(--wine);
+    box-shadow: 0 0 0 3px rgba(99, 36, 59, 0.14);
+}
+
+/* Direct Floating WhatsApp Icon (No Background / No Border) */
+.vishwa-site .float-chat {
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 220ms ease;
+}
+.vishwa-site .float-chat:hover {
+    background: transparent;
+    box-shadow: none;
+    transform: translateY(-4px) scale(1.07);
+}
+.vishwa-site .float-wa-svg {
+    display: block;
+    width: 56px;
+    height: 56px;
+    filter: drop-shadow(0 8px 18px rgba(37, 211, 102, 0.38))
+        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+.vishwa-site .float-chat:hover .float-wa-svg {
+    filter: drop-shadow(0 12px 24px rgba(37, 211, 102, 0.48))
+        drop-shadow(0 4px 10px rgba(0, 0, 0, 0.24));
+}
+
+/* 5. Keyframe Animations & Scroll Reveals
+   -------------------------------------------------------------------------- */
+@keyframes hero-fade-up {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 22px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes hero-media-in {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+@keyframes hero-float-a {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(0, -8px, 0);
+    }
+}
+@keyframes hero-float-b {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(0, 7px, 0);
+    }
+}
+@keyframes orb-drift {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-18px, 14px, 0) scale(1.06);
+    }
+}
+@keyframes pulse-live {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.65);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
+}
+@keyframes review-slide-in {
+    from {
+        opacity: 0;
+        transform: translate3d(10px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes reveal-up {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 22px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes reveal-scale {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 14px, 0) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hero-anim {
+        animation: hero-fade-up 680ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .hero-anim-1 {
+        animation-delay: 40ms;
+    }
+    .hero-anim-2 {
+        animation-delay: 110ms;
+    }
+    .hero-anim-3 {
+        animation-delay: 180ms;
+    }
+    .hero-anim-4 {
+        animation-delay: 250ms;
+    }
+    .hero-anim-5 {
+        animation-delay: 330ms;
+    }
+    .hero-anim-media {
+        animation: hero-media-in 820ms cubic-bezier(0.2, 0.8, 0.2, 1) 180ms both;
+    }
+    .hero-live-dot {
+        animation: pulse-live 2.2s infinite;
+    }
+    .hero-orb-1 {
+        animation: orb-drift 14s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+        animation: orb-drift 18s ease-in-out infinite reverse;
+    }
+    .hero-float-chip.chip-top {
+        animation: hero-float-a 6.5s ease-in-out infinite;
+    }
+    .hero-float-chip.chip-bottom {
+        animation: hero-float-b 7.4s ease-in-out infinite;
+    }
+    .vishwa-page-header .page-header-copy {
+        animation: hero-fade-up 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .vishwa-page-header .page-header-aside {
+        animation: hero-media-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 120ms both;
+    }
+    .review-slide {
+        animation: review-slide-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    [data-reveal] {
+        opacity: 0;
+    }
+    [data-reveal][data-entered='true'] {
+        opacity: 1;
+        animation: reveal-up 560ms cubic-bezier(0.2, 0.8, 0.2, 1)
+            var(--reveal-delay, 0ms) both;
+    }
+    [data-reveal='scale'][data-entered='true'] {
+        animation-name: reveal-scale;
+    }
+    .button {
+        transition:
+            transform 180ms ease,
+            background-color 180ms ease,
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+    }
+    .button:hover {
+        transform: translateY(-1.5px);
+    }
+    .button:active {
+        transform: translateY(0);
+    }
+}
+
+/* 6. Responsive Adjustments
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+    .hero-wide-wrap {
+        width: min(100% - 48px, 1380px);
+    }
+    .modern-hero.hero-full .modern-hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+        min-height: clamp(540px, 76svh, 760px);
+    }
+}
+@media (max-width: 860px) {
+    .modern-hero.hero-full .modern-hero-grid,
+    .vishwa-page-header.has-aside .page-header-inner,
+    .services-grid-view,
+    .service-grid-card.is-featured,
+    .faq-modern-grid {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 0;
+    }
+    .service-grid-card.is-featured .service-grid-media {
+        min-height: 0;
+        aspect-ratio: 1.78;
+    }
+    .modern-hero.hero-full .modern-hero-grid {
+        gap: 2.2rem;
+        padding-block: 2.5rem 3.2rem;
+    }
+    .hero-stage {
+        padding: 0.75rem 0.25rem 1.2rem;
+    }
+    .hero-float-chip.chip-top {
+        right: 0.5rem;
+    }
+    .hero-float-chip.chip-bottom {
+        left: 0.5rem;
+    }
+    .vishwa-site .nav.open {
+        margin-top: 0.45rem;
+        border-radius: 16px;
+        box-shadow: 0 20px 44px rgba(50, 23, 35, 0.16);
+    }
+}
+@media (max-width: 540px) {
+    .hero-wide-wrap {
+        width: calc(100% - 32px);
+    }
+    .hero-trust-dock {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .hero-float-chip.chip-top {
+        display: none;
+    }
+    .hero-float-chip.chip-bottom {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        margin-top: 0.8rem;
+        animation: none;
+    }
+    .modern-hero.hero-full .modern-hero-copy h1 {
+        font-size: clamp(2.25rem, 9.2vw, 3.2rem);
+    }
+    .faq-card-summary {
+        padding: 1rem 1.05rem;
+        gap: 0.7rem;
+        font-size: 0.98rem;
+    }
+    .faq-card-body {
+        padding: 0 1.05rem 1.15rem 1.05rem;
+    }
+    .vishwa-site .float-wa-svg {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Specialist Repairs Showcase (Home Services + Services Page) */
+.specialist-section {
+    padding-top: clamp(2rem, 4vw, 3.2rem);
+    background: #ffffff;
+}
+.specialist-block.is-embedded {
+    margin-top: clamp(1.8rem, 3.6vw, 2.75rem);
+}
+.specialist-head h3 {
+    font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+    letter-spacing: -0.03em;
+    color: var(--wine-dark);
+    margin: 0 0 1rem;
+}
+.specialist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 2vw, 1.35rem);
+}
+.specialist-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.95rem;
+    padding: 1.25rem;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid rgba(99, 36, 59, 0.13);
+    box-shadow: 0 10px 26px rgba(82, 33, 54, 0.055);
+    transition:
+        transform 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease;
+}
+.specialist-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 36, 59, 0.3);
+    box-shadow: 0 18px 36px rgba(82, 33, 54, 0.11);
+}
+.specialist-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 13px;
+    background: linear-gradient(142deg, #fbf1f5 15%, #f8ede1 100%);
+    border: 1px solid #f0e0e6;
+    color: var(--wine);
+}
+.specialist-card h4 {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+    font-weight: 760;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+.specialist-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.91rem;
+    line-height: 1.5;
+}
+
+/* Visiting Charges Banner (Home + Services) */
+.visiting-pricing-section {
+    padding-block: clamp(1.2rem, 3vw, 2.2rem);
+    background: #fcf6f8;
+}
+.visiting-pricing-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.3rem, 3.6vw, 3rem);
+    align-items: center;
+    padding: clamp(1.5rem, 3.4vw, 2.4rem);
+    border-radius: 24px;
+    background:
+        radial-gradient(
+            ellipse 65% 80% at 92% 15%,
+            rgba(241, 199, 134, 0.22),
+            transparent 65%
+        ),
+        linear-gradient(135deg, #250f19 0%, #3d1829 52%, #28101c 100%);
+    border: 1px solid rgba(241, 199, 134, 0.28);
+    color: #fff9fb;
+    box-shadow: 0 22px 52px rgba(37, 15, 25, 0.2);
+}
+.visiting-amount {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    margin-bottom: 0.95rem;
+}
+.visiting-amount strong {
+    font-size: clamp(2.3rem, 4.2vw, 3.2rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    font-weight: 850;
+    background: linear-gradient(120deg, #fff3dc 0%, #f1c786 55%, #dfa24e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.vishwa-site .visiting-amount h2 {
+    font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin: 0;
+}
+.visiting-rules {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+}
+.visiting-rules li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: rgba(248, 236, 241, 0.9);
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+.visiting-rules svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.18rem;
+}
+.visiting-action-col {
+    display: flex;
+    align-items: center;
+}
+.visiting-cta {
+    white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+    .specialist-grid,
+    .visiting-pricing-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .visiting-cta {
+        width: 100%;
+    }
+}
+
+:lang(mr) .vishwa-page-header h1,
+:lang(gu) .vishwa-page-header h1,
+:lang(mr) .modern-hero.hero-full .modern-hero-copy h1,
+:lang(gu) .modern-hero.hero-full .modern-hero-copy h1 {
+    line-height: 1.16;
+    letter-spacing: -0.025em;
+}
+

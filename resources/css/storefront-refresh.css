@@ -1,0 +1,501 @@
+.vishwa-site .hero-grid {
+    min-height: clamp(460px, 43vw, 570px);
+}
+.vishwa-site .hero-visual {
+    border-radius: 19px;
+}
+.vishwa-site .service-gallery {
+    background: linear-gradient(173deg, #fff 48%, #fbf4f6);
+}
+.vishwa-site .service-gallery .service-grid {
+    gap: clamp(0.85rem, 2vw, 1.3rem);
+}
+.vishwa-site .service-gallery .service-card {
+    display: flex;
+    min-height: 0;
+    padding: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 9px 28px #5221360b;
+}
+.service-photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.65;
+    object-fit: cover;
+    background: #4a2c3a;
+}
+.service-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 1.1rem;
+}
+.vishwa-site .service-copy .service-icon {
+    position: relative;
+    width: 49px;
+    height: 49px;
+    margin-top: -2.55rem;
+    margin-bottom: 0.85rem;
+    border: 3px solid white;
+    box-shadow: 0 3px 12px #52213621;
+}
+.service-copy .service-icon img {
+    width: 32px;
+    height: 32px;
+}
+.service-copy p {
+    flex: 1;
+}
+.page-banner-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.34fr) minmax(0, 0.86fr);
+    align-items: center;
+    gap: clamp(1.3rem, 4vw, 4rem);
+}
+.page-banner-illustrated {
+    padding-block: clamp(2.2rem, 5vw, 4.6rem);
+}
+.page-banner-illustrated .page-banner-grid h1 {
+    font-size: clamp(2.55rem, 5.2vw, 4.66rem);
+}
+.page-banner-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.72;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 1px solid #edc49156;
+    box-shadow: 0 14px 28px #1e101a55;
+}
+.contact-banner-chat {
+    margin-top: 1.2rem;
+    color: var(--wine-dark);
+    background: var(--gold);
+}
+.contact-banner-chat:hover {
+    background: #ffdda7;
+}
+.shop-category-rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-bottom: 1.2rem;
+}
+.shop-category-rail a {
+    display: flex;
+    align-items: center;
+    min-height: 47px;
+    gap: 0.55rem;
+    border: 1px solid #e2d4d7;
+    border-radius: 9px;
+    background: white;
+    padding: 0.5rem 0.85rem;
+    color: var(--wine);
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+.shop-category-rail a:hover {
+    background: #f6e9ef;
+}
+.shop-category-rail [aria-current='page'] {
+    background: var(--wine);
+    border-color: var(--wine);
+    color: white;
+}
+.shop-category-rail [aria-current='page']:hover {
+    background: #7b304a;
+}
+.vishwa-site .shop-sidebar {
+    border-radius: 15px;
+}
+.catalog-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 15px;
+}
+.catalog-card .card-photo-link {
+    position: relative;
+    overflow: hidden;
+}
+.catalog-card .product-copy {
+    flex: 1;
+    align-content: start;
+    padding: 1.15rem;
+}
+.catalog-card .product-copy h3 {
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    line-height: 1.23;
+    overflow-wrap: anywhere;
+}
+.catalog-card .product-meta {
+    font-weight: 730;
+}
+.device-card .product-copy {
+    display: flex;
+    flex-direction: column;
+}
+.card-condition {
+    position: absolute;
+    top: 0.68rem;
+    left: 0.68rem;
+    max-width: calc(100% - 1.36rem);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: white;
+    color: var(--wine);
+    box-shadow: 0 2px 10px #32172322;
+    font-size: 0.8125rem;
+    font-weight: 750;
+}
+.card-specs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.32rem;
+    margin-bottom: 0.3rem;
+}
+.card-specs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 0;
+    border: 1px solid #eddee4;
+    border-radius: 6px;
+    padding: 0.22rem 0.43rem;
+    color: #624c56;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+}
+.card-specs svg {
+    color: var(--wine);
+    flex-shrink: 0;
+}
+.device-card .catalog-card-bottom {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+.device-card .catalog-card-bottom strong {
+    color: var(--wine-dark);
+    font-size: 1.12rem;
+}
+.device-card .catalog-card-bottom .button {
+    min-height: 40px;
+    padding: 0.42rem 0.6rem;
+    font-size: 0.875rem;
+}
+.article-card .product-copy .text-link {
+    margin-top: 0.35rem;
+    width: fit-content;
+}
+.article-card .product-copy p {
+    line-height: 1.6;
+}
+.blog-landing > .wrap {
+    display: grid;
+    gap: clamp(1.8rem, 5vw, 3.4rem);
+}
+.blog-landing .section-head {
+    margin-bottom: 0.85rem;
+}
+.blog-landing .section-head h2 {
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+.blog-empty {
+    display: grid;
+    min-height: 250px;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: clamp(1.3rem, 5vw, 3rem);
+    background: radial-gradient(ellipse at 95% 10%, #f6e7ee, white 72%);
+}
+.blog-empty h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.8rem);
+}
+.blog-empty p {
+    margin: 0.65rem 0 1.15rem;
+    color: var(--muted);
+    max-width: 54ch;
+}
+.article-card-featured {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+}
+.article-card-featured .product-photo {
+    height: 100%;
+    min-height: 235px;
+}
+.article-card-featured .product-copy {
+    align-content: center;
+    gap: 0.62rem;
+    padding: clamp(1.2rem, 4vw, 3rem);
+}
+.article-card-featured .product-copy h3 {
+    font-size: clamp(1.65rem, 3.6vw, 3rem);
+    letter-spacing: -0.045em;
+}
+.contact-page .contact-form-grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1rem, 3vw, 2.3rem);
+}
+.contact-options {
+    display: grid;
+    gap: 0.8rem;
+}
+.contact-option {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding: clamp(0.9rem, 2.1vw, 1.4rem);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: white;
+}
+.contact-option .service-icon {
+    margin-bottom: 0;
+}
+.vishwa-site .contact-page .contact-option h2 {
+    font-size: 1.22rem;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.4rem;
+}
+.vishwa-site .contact-option address {
+    color: var(--muted);
+}
+.contact-option p {
+    margin-top: 0.28rem;
+}
+.contact-page .contact-form {
+    border-radius: 16px;
+    gap: 1rem;
+    padding: clamp(1.1rem, 3vw, 2.1rem);
+}
+.contact-form-heading h2 {
+    font-size: clamp(1.8rem, 3.3vw, 2.7rem);
+    margin-bottom: 0.45rem;
+}
+.review-provider-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+}
+.review-provider-card,
+.review-slide {
+    min-width: 0;
+    border: 1px solid #e9dce2;
+    border-radius: 15px;
+    background: white;
+    padding: clamp(1rem, 2.6vw, 1.64rem);
+    box-shadow: 0 7px 25px #5221360a;
+}
+.review-provider-title,
+.review-provider-actions,
+.review-score,
+.review-slide-meta,
+.review-provider-note,
+.live-stars {
+    display: flex;
+    align-items: center;
+}
+.review-provider-title {
+    gap: 0.6rem;
+}
+.review-provider-title > span {
+    display: grid;
+    place-items: center;
+    width: 39px;
+    height: 39px;
+    color: var(--wine);
+    background: #f7eaf0;
+    border-radius: 8px;
+}
+.review-provider-card:nth-child(2) .review-provider-title > span {
+    background: #fbefda;
+    color: #8b5b20;
+}
+.vishwa-site .review-provider-title h3 {
+    margin: 0;
+}
+.review-provider-title small {
+    margin-left: auto;
+    padding: 0.22rem 0.56rem;
+    border-radius: 6px;
+    background: #e5f3eb;
+    color: #245a3d;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+.review-score {
+    gap: 0.75rem;
+    margin-top: 0.65rem;
+    color: var(--wine);
+}
+.review-score > strong {
+    font-size: 2.3rem;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+.review-score > div > span:last-child {
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+.live-stars {
+    gap: 0.12rem;
+    color: #925c17;
+}
+.review-provider-actions {
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 0.7rem;
+}
+.review-provider-actions .text-link {
+    margin: 0;
+}
+.review-provider-actions button[aria-pressed='true'] {
+    color: white;
+    background: var(--wine);
+    border-color: var(--wine);
+}
+.review-slide-head {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.75rem;
+}
+.review-photo,
+.review-slide-head .review-initials {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.review-slide-head a,
+.review-slide-head strong {
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+.review-slide-meta {
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+.live-quote {
+    color: #a86d24;
+    align-self: start;
+}
+.review-slide blockquote {
+    margin: 0.9rem 0;
+    color: var(--ink);
+    font-size: clamp(1rem, 2vw, 1.13rem);
+    line-height: 1.65;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+.review-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    margin-top: 0.7rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+.review-carousel-controls button {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    color: var(--wine);
+    border: 1px solid #dbc2cc;
+    border-radius: 7px;
+    background: white;
+}
+.review-carousel-controls button:hover {
+    background: #f7eaf0;
+}
+.review-provider-note {
+    gap: 0.5rem 0.85rem;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-top: 0.55rem;
+}
+.review-provider-note strong {
+    color: #333;
+    background: white;
+    padding: 0.22rem 0.6rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 1rem;
+}
+.review-provider-note a {
+    text-decoration: underline;
+}
+.reviews-feedback {
+    color: var(--muted);
+    margin: 0.8rem 0 0;
+}
+
+@media (min-width: 900px) {
+    .vishwa-site .shop-sidebar {
+        position: sticky;
+        top: 1rem;
+    }
+}
+@media (prefers-reduced-motion: no-preference) {
+    .catalog-card .product-photo,
+    .service-photo {
+        transition: scale 240ms ease;
+    }
+    .catalog-card:hover .product-photo,
+    .service-gallery .service-card:hover .service-photo {
+        scale: 1.035;
+    }
+}
+@media (max-width: 740px) {
+    .vishwa-site .hero-grid {
+        min-height: 0;
+    }
+    .page-banner-grid,
+    .contact-page .contact-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .page-banner-image {
+        max-height: 235px;
+    }
+    .contact-options {
+        grid-row: 2;
+    }
+    .article-card-featured {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .article-card-featured .product-photo {
+        min-height: 0;
+    }
+}
+@media (max-width: 500px) {
+    .review-provider-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .vishwa-site .service-gallery .service-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .service-photo {
+        aspect-ratio: 1.9;
+    }
+    .shop-category-rail {
+        gap: 0.35rem;
+    }
+    .shop-category-rail a {
+        min-height: 41px;
+        padding: 0.3rem 0.55rem;
+        font-size: 0.875rem;
+    }
+}

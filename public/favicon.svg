@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -12 108 108"><g id="motherboard-v">
+    <g id="secondary-trace" fill="#AD7625">
+      <path d="M92.8 37L74 72H51" fill="none" stroke="#AD7625" stroke-width="5.5" stroke-linejoin="round" />
+      <path fill-rule="evenodd" d="M104 31A8 8 0 1 1 88 31A8 8 0 1 1 104 31ZM99.2 31A3.2 3.2 0 1 1 92.8 31A3.2 3.2 0 1 1 99.2 31Z" />
+    </g>
+    <g id="primary-trace" fill="#63243B">
+      <path d="M15.6 18.6L48 78L80.4 18.6" fill="none" stroke="#63243B" stroke-width="12" stroke-linejoin="round" />
+      <path id="solder-pads" fill-rule="evenodd" d="M23 12A11 11 0 1 1 1 12A11 11 0 1 1 23 12ZM16.8 12A4.8 4.8 0 1 1 7.2 12A4.8 4.8 0 1 1 16.8 12ZM95 12A11 11 0 1 1 73 12A11 11 0 1 1 95 12ZM88.8 12A4.8 4.8 0 1 1 79.2 12A4.8 4.8 0 1 1 88.8 12Z" />
+    </g>
+  </g>
+  </svg>
