@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Post;
 use App\Models\Product;
+use App\Services\RepairServices;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,7 +80,7 @@ class ServeMarkdownForAgents
             'Vishwa IT Solutions provides laptop & PC repair, chip-level motherboard repairing, MacBook & All-in-One (AIO) system repair, networking, data recovery, office IT support (AMC), and tested pre-owned computers in Nalasopara East, Vasai-Virar, Maharashtra.',
             '',
             '## Visiting Charges & Repair Policy',
-            '- **Visiting Charge:** ₹350 (includes diagnosis and repair of any software-related problem).',
+            '- **Visiting Charge:** '.RepairServices::visitingCharge().' (includes diagnosis and repair of any software-related problem).',
             '- **Hardware Faults:** Only the cost of replacement parts is charged extra (confirmed before repair).',
             '',
             '## Core Services',
@@ -90,7 +91,7 @@ class ServeMarkdownForAgents
             '- **Office IT Support (AMC):** Ongoing scheduled maintenance for business computers and networks.',
             '',
             '## Frequently Asked Questions',
-            '- **What are the visiting and repair charges?** Our visiting charge is ₹350, which includes repairing any software-related problem. If there is a hardware fault, only the cost of replacement parts applies.',
+            '- **What are the visiting and repair charges?** Our visiting charge is '.RepairServices::visitingCharge().', which includes repairing any software-related problem. If there is a hardware fault, only the cost of replacement parts applies.',
             '- **Do you repair MacBooks, All-in-One PCs, and chip-level faults?** Yes — we handle chip-level motherboard repairing, MacBook repairs, All-in-One systems, and all major Windows laptops and desktops.',
             '- **Can I visit the workshop?** Yes, call +91 76667 04188 before visiting Room no. 2, Chauhan Chawl, Hans Vijay Nagar, Hawai Pada, Nalasopara East, Vasai-Virar, Maharashtra 401209.',
             '',
@@ -145,7 +146,7 @@ class ServeMarkdownForAgents
             '# Computer Repair & IT Services — Vishwa IT Solutions',
             '',
             '## Visiting Charge',
-            '- **₹350 Visiting Charge** — includes repair of any software-related problem.',
+            '- **'.RepairServices::visitingCharge().' Visiting Charge** — includes repair of any software-related problem.',
             '- **Hardware Faults** — only the cost of replacement parts applies.',
             '',
             '## Specialized Hardware Repairs',
@@ -220,7 +221,7 @@ class ServeMarkdownForAgents
             '',
             '- **Phone / WhatsApp:** +91 76667 04188',
             '- **Address:** Room no. 2, Chauhan Chawl, Hans Vijay Nagar, Hawai Pada, Nalasopara East, Vasai-Virar, Maharashtra 401209',
-            '- **Visiting Charge:** ₹350 (includes software-related repairs; hardware parts billed separately)',
+            '- **Visiting Charge:** '.RepairServices::visitingCharge().' (includes software-related repairs; hardware parts billed separately)',
             '',
         ], $this->linksFooter()))."\n";
     }
@@ -230,7 +231,7 @@ class ServeMarkdownForAgents
         return implode("\n", array_merge([
             '# Terms of Service & Privacy — Vishwa IT Solutions',
             '',
-            '- **Visiting & Diagnostic Charge:** ₹350 per visit covers software troubleshooting and repair. Any hardware replacement parts are quoted and approved by the customer before installation.',
+            '- **Visiting & Diagnostic Charge:** '.RepairServices::visitingCharge().' per visit covers software troubleshooting and repair. Any hardware replacement parts are quoted and approved by the customer before installation.',
             '- **Data Privacy:** Customer drives and devices are handled confidentially. Customers are advised to back up important data prior to repair whenever possible.',
             '- **Enquiries & Analytics:** Contact form messages are used strictly to respond to your service or product enquiry. Basic anonymised visit counts are used to understand site traffic.',
             '',

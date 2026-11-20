@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AutomationController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryPhotoController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\IntegrationController;
 use App\Http\Controllers\Admin\PostController;
@@ -44,6 +45,9 @@ Route::middleware(['auth', 'verified', 'can:manage-store'])->group(function (): 
     Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::resource('products', ProductController::class)->except('show');
         Route::resource('posts', PostController::class)->except('show');
+        Route::resource('gallery', GalleryPhotoController::class)
+            ->only(['index', 'store', 'update', 'destroy'])
+            ->parameters(['gallery' => 'photo']);
         Route::get('inbox', [InboxController::class, 'index'])->name('inbox.index');
         Route::get('inbox/{message}', [InboxController::class, 'show'])->name('inbox.show');
         Route::patch('inbox/{message}', [InboxController::class, 'update'])->name('inbox.update');

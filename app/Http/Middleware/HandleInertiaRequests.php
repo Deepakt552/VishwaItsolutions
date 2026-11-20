@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\RepairServices;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -39,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'locale' => app()->getLocale(),
+            'visitingChargeInr' => RepairServices::VISITING_CHARGE_INR,
             'auth' => [
                 'user' => $request->user(),
             ],

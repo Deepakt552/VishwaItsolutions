@@ -2,7 +2,9 @@
 
 use App\Models\Post;
 use App\Models\Product;
+use Database\Seeders\LocalRepairGuidesSeeder;
 use Illuminate\Support\Facades\Cache;
+use Inertia\Support\Header;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('the www storefront permanently redirects to the primary HTTPS URL', function () {
@@ -14,13 +16,39 @@ test('the www storefront permanently redirects to the primary HTTPS URL', functi
 test('the homepage identifies the workshop and its profiles without using provider reviews in search markup', function () {
     Cache::put('live_reviews.payload', ['google' => ['status' => 'live', 'rating' => 5, 'count' => 248]]);
 
-    $this->get(route('home', ['utm_source' => 'google']))
+    $response = $this->get(route('home', ['utm_source' => 'google']))
         ->assertOk()
         ->assertSee('<title data-inertia>Laptop &amp; PC Repair in Nalasopara East | Vishwa IT Solutions</title>', false)
         ->assertSee('href="'.route('home').'/"', false)
         ->assertSee('https://maps.google.com/?cid=724797085471440985', false)
+        ->assertSee('"name":"Vasai-Virar"', false)
+        ->assertSee('"price":"400"', false)
+        ->assertDontSee('"name":"Mumbai Central Line', false)
         ->assertDontSee('aggregateRating')
-        ->assertDontSee('name="keywords"', false);
+        ->assertDontSee('name="keywords"', false)
+        ->assertInertia(fn (Assert $page) => $page
+            ->where('visitingChargeInr', 400)
+            ->missing('seo.structured')
+            ->missing('structuredData'));
+
+    expect(substr_count((string) $response->getContent(), 'type="application/ld+json"'))->toBe(1);
+});
+
+test('Inertia navigation receives the destination structured data and metadata', function () {
+    $url = route('storefront.service', 'macbook-repair');
+    $version = $this->get(route('home'))->viewData('page')['version'] ?? '';
+
+    $response = $this->get($url, [
+        Header::INERTIA => 'true',
+        Header::VERSION => $version,
+    ])->assertOk()
+        ->assertHeader(Header::INERTIA, 'true')
+        ->assertJsonPath('props.seo.canonical', $url)
+        ->assertJsonMissingPath('props.seo.structured');
+
+    $schema = json_decode($response->json('props.structuredData'), true, flags: JSON_THROW_ON_ERROR);
+
+    expect($schema['@graph'][1]['itemListElement'][2]['item'])->toBe($url);
 });
 
 test('each specialist repair has its own crawlable page and sitemap entry', function (string $slug, string $heading) {
@@ -31,7 +59,10 @@ test('each specialist repair has its own crawlable page and sitemap entry', func
         ->assertSee('rel="canonical" href="'.$url.'"', false)
         ->assertSee($heading)
         ->assertSee('"@type":"BreadcrumbList"', false)
-        ->assertInertia(fn (Assert $page) => $page->component('storefront/service')->has('relatedServices', 3));
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('storefront/service')
+            ->has('relatedServices', 3)
+            ->missing('structuredData'));
 
     $this->get(route('storefront.services'))->assertSee('href="'.$url.'"', false);
     $this->get(route('storefront.sitemap'))->assertSee('<loc>'.$url.'</loc>', false);
@@ -44,6 +75,48 @@ test('each specialist repair has its own crawlable page and sitemap entry', func
 
 test('an unknown repair service returns 404', function () {
     $this->get('/services/unknown-repair')->assertNotFound();
+});
+
+test('the local guides appear on the blog with links to their repair services', function () {
+    $this->freezeTime();
+    $this->seed(LocalRepairGuidesSeeder::class);
+
+    $this->get(route('storefront.blog'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page->has('posts.data', 5));
+
+    $guides = [
+        'macbook-wont-turn-on-after-monsoon' => 'macbook-repair',
+        'desktop-turns-on-but-no-display' => 'laptop-repair',
+        'laptop-no-power-charger-or-motherboard' => 'motherboard-repair',
+        'nvme-ssd-data-recovery-vasai-virar' => 'data-recovery',
+        'laptop-overheating-slow-shutdown' => 'laptop-repair',
+    ];
+
+    foreach ($guides as $slug => $service) {
+        $link = 'href="'.route('storefront.service', $service, absolute: false).'"';
+
+        $this->get(route('storefront.article', $slug))
+            ->assertOk()
+            ->assertSee('"@type":"BreadcrumbList"', false)
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('post.html', fn (string $html): bool => str_contains($html, $link))
+                ->missing('structuredData'));
+    }
+});
+
+test('rerunning the guide seeder preserves edits to existing guides', function () {
+    $this->freezeTime();
+    $post = Post::factory()->create(['slug' => 'macbook-wont-turn-on-after-monsoon']);
+
+    $this->seed(LocalRepairGuidesSeeder::class);
+
+    $this->assertDatabaseCount('posts', 5);
+    $this->assertDatabaseHas('posts', [
+        'id' => $post->id,
+        'body' => $post->body,
+        'published_at' => null,
+    ]);
 });
 
 test('the sitemap exposes canonical public records and uses actual content dates', function () {

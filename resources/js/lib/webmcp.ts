@@ -19,7 +19,7 @@ declare global {
 
 let registered = false;
 
-export function registerWebMcpTools(): void {
+export function registerWebMcpTools(visitingChargeInr: number): void {
     if (registered || typeof navigator === 'undefined') {
         return;
     }
@@ -35,16 +35,15 @@ export function registerWebMcpTools(): void {
     const tools: WebMcpTool[] = [
         {
             name: 'get_repair_pricing_and_services',
-            description:
-                'Get Vishwa IT Solutions computer repair services, ₹350 visiting charge policy, and specialized chip-level, MacBook, and All-in-One repair capabilities.',
+            description: `Get Vishwa IT Solutions computer repair services, ₹${visitingChargeInr} visiting charge policy, and specialized chip-level, MacBook, and All-in-One repair capabilities.`,
             inputSchema: {
                 type: 'object',
                 properties: {},
             },
             execute: () => ({
                 business: business.name,
-                visitingChargeInr: 350,
-                policy: '₹350 visiting charge includes diagnosis and repair of any software-related problem. If there is a hardware fault, only the cost of replacement parts applies.',
+                visitingChargeInr,
+                policy: `₹${visitingChargeInr} visiting charge includes diagnosis and repair of any software-related problem. If there is a hardware fault, only the cost of replacement parts applies.`,
                 specialties: [
                     'Chip-Level Repairing',
                     'MacBook Repair',

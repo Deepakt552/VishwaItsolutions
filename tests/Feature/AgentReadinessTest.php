@@ -64,7 +64,20 @@ test('homepage serves text/markdown when an agent sends Accept: text/markdown', 
         ->assertOk()
         ->assertHeader('Content-Type', 'text/markdown; charset=UTF-8')
         ->assertSee('# Vishwa IT Solutions', false)
-        ->assertSee('₹350', false);
+        ->assertSee('₹400', false);
+});
+
+test('the public business info tool reports the current visiting charge', function () {
+    $response = $this->postJson('/api/mcp', [
+        'jsonrpc' => '2.0',
+        'id' => 1,
+        'method' => 'tools/call',
+        'params' => ['name' => 'get_business_info', 'arguments' => []],
+    ])->assertOk();
+
+    $business = json_decode($response->json('result.content.0.text'), true, flags: JSON_THROW_ON_ERROR);
+
+    expect($business['visiting_charge_inr'])->toBe(400);
 });
 
 test('MCP server card is published at /.well-known/mcp/server-card.json and /api/mcp responds to JSON-RPC', function () {

@@ -4,6 +4,13 @@ namespace App\Services;
 
 class RepairServices
 {
+    public const VISITING_CHARGE_INR = 400;
+
+    public static function visitingCharge(): string
+    {
+        return '₹'.self::VISITING_CHARGE_INR;
+    }
+
     /**
      * @return array<string, array{name: string, title: string, description: string, image: string, sections: array<string, string>}>
      */
@@ -18,7 +25,7 @@ class RepairServices
                 'sections' => [
                     'Laptop and desktop problems we check' => 'Bring in a laptop or desktop that won’t switch on, loses charge, shuts down under load or has a damaged screen or keyboard. If it still turns on but runs slowly, we can check whether Windows, cooling or a failing drive is responsible.',
                     'When a part needs replacing' => 'A laptop that won’t charge can have a faulty adaptor, battery, charging port or motherboard. Bring its charger if you have it. We’ll explain what the diagnosis points to and quote any replacement parts before you approve the repair.',
-                    'Workshop and visiting charges' => 'Our workshop is in Hawai Pada, Nalasopara East. If you need a technician to visit, call to confirm availability. The ₹350 visiting charge covers software-related repair. Hardware replacement parts are quoted separately.',
+                    'Workshop and visiting charges' => 'Our workshop is in Hawai Pada, Nalasopara East. If you need a technician to visit, call to confirm availability. The '.self::visitingCharge().' visiting charge covers software-related repair. Hardware replacement parts are quoted separately.',
                 ],
             ],
             'macbook-repair' => [

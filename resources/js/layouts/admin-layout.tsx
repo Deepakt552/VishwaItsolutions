@@ -4,6 +4,7 @@ import {
     ChevronRight,
     Cable,
     ExternalLink,
+    Images,
     LayoutDashboard,
     LogOut,
     Mail,
@@ -19,6 +20,7 @@ import type { ReactNode } from 'react';
 import '../../css/admin.css';
 import { dashboard, home, logout } from '@/routes';
 import { index as automation } from '@/routes/admin/automation';
+import { index as gallery } from '@/routes/admin/gallery';
 import { index as inbox } from '@/routes/admin/inbox';
 import { index as integrations } from '@/routes/admin/integrations';
 import { index as posts } from '@/routes/admin/posts';
@@ -30,6 +32,7 @@ const navigation = [
     { label: 'Overview', route: dashboard, icon: LayoutDashboard },
     { label: 'Products', route: products, icon: Package },
     { label: 'Blog posts', route: posts, icon: BookOpen },
+    { label: 'Workshop gallery', route: gallery, icon: Images },
     { label: 'Inbox', route: inbox, icon: Mail },
     { label: 'AI automation', route: automation, icon: Sparkles },
     { label: 'API integration', route: integrations, icon: Cable },

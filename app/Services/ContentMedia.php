@@ -9,7 +9,9 @@ use RuntimeException;
 
 class ContentMedia
 {
-    public const IMAGE_RULES = ['file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096', 'dimensions:max_width=9000,max_height=9000'];
+    public const IMAGE_FORMAT_RULES = ['file', 'image', 'mimes:jpg,jpeg,png,webp'];
+
+    public const IMAGE_RULES = [...self::IMAGE_FORMAT_RULES, 'max:4096', 'dimensions:max_width=9000,max_height=9000'];
 
     public function store(UploadedFile $file): string
     {

@@ -66,15 +66,16 @@
                 <meta data-inertia="twitter:description" name="twitter:description" content="{{ $seo['description'] }}">
                 <meta data-inertia="twitter:image" name="twitter:image" content="{{ $seo['image'] }}">
                 <meta data-inertia="twitter:image:alt" name="twitter:image:alt" content="{{ $seo['imageAlt'] }}">
-                @if ($seo['structured'])
-                    <script data-inertia="structured" type="application/ld+json">{!! $seo['structured'] !!}</script>
-                @endif
             @else
                 <meta data-inertia="robots" name="robots" content="noindex,nofollow">
             @endif
         </x-inertia::head>
+        @isset ($structuredData)
+            <script data-inertia="structured" data-canonical="{{ $seo['canonical'] }}" type="application/ld+json">{!! $structuredData !!}</script>
+        @endisset
     </head>
     <body class="font-sans antialiased">
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THL57LMB" title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <x-inertia::app />
         @if ($seo)
             <noscript>
@@ -106,6 +107,19 @@
                         <a href="{{ route('storefront.contact') }}">Contact</a>
                         <a href="{{ route('storefront.terms') }}">Terms &amp; Privacy</a>
                     </nav>
+                    @if (!empty($page['props']['galleryPhotos']))
+                        <section>
+                            <h2>Workshop gallery</h2>
+                            @foreach ($page['props']['galleryPhotos'] as $photo)
+                                <figure>
+                                    <img src="{{ $photo['url'] }}" alt="{{ $photo['alt_text'] }}" width="{{ $photo['width'] }}" height="{{ $photo['height'] }}" loading="lazy" decoding="async">
+                                    @if ($photo['caption'])
+                                        <figcaption>{{ $photo['caption'] }}</figcaption>
+                                    @endif
+                                </figure>
+                            @endforeach
+                        </section>
+                    @endif
                 </main>
             </noscript>
         @endif

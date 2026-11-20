@@ -16,20 +16,28 @@ import {
 import LiveReviews from '@/components/storefront/LiveReviews';
 import type { ReviewAvailability } from '@/components/storefront/LiveReviews';
 import Reveal from '@/components/storefront/Reveal';
+import WorkshopGallery from '@/components/storefront/WorkshopGallery';
 import { useSiteText } from '@/lib/site-text';
 import { blog, shop } from '@/routes/storefront';
-import type { Article, Product, RepairServiceLink } from '@/types/storefront';
+import type {
+    Article,
+    GalleryPhoto,
+    Product,
+    RepairServiceLink,
+} from '@/types/storefront';
 
 export default function Home({
     products,
     posts,
     reviewsEnabled,
     repairServices,
+    galleryPhotos,
 }: {
     products: Product[];
     posts: Article[];
     reviewsEnabled: ReviewAvailability;
     repairServices: RepairServiceLink[];
+    galleryPhotos: GalleryPhoto[];
 }) {
     const { t } = useSiteText();
     return (
@@ -70,6 +78,7 @@ export default function Home({
             <FrequentlyAsked />
             <ServiceAreas />
             <Contact />
+            <WorkshopGallery photos={galleryPhotos} />
         </>
     );
 }

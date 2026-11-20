@@ -64,7 +64,7 @@ export default function ServicesPage({
                                         alt=""
                                         width="840"
                                         height="560"
-                                        loading={index < 2 ? 'eager' : 'lazy'}
+                                        loading="lazy"
                                         decoding="async"
                                     />
                                     <div

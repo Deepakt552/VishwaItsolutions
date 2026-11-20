@@ -807,3 +807,17 @@
 .admin-feed-contract :is(p, pre) {
     margin-top: 0.55rem;
 }
+.admin-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 1rem;
+    margin-block: 1rem;
+}
+
+.admin-gallery-preview {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+}

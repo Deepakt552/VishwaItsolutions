@@ -19,10 +19,11 @@ export default function TermsPage() {
                 <h2>{t('visitChargeTitle')}</h2>
                 <p>
                     Our standard technician visiting charge is{' '}
-                    <strong>₹350</strong>, which covers on-site or workshop
-                    diagnosis and repair of any software-related issue. If a
-                    hardware fault is identified, only the cost of replacement
-                    parts is billed separately after your confirmation.
+                    <strong>{t('visitChargeAmount')}</strong>, which covers
+                    on-site or workshop diagnosis and repair of any
+                    software-related issue. If a hardware fault is identified,
+                    only the cost of replacement parts is billed separately
+                    after your confirmation.
                 </p>
 
                 <h2>Repairs &amp; Pre-owned Devices</h2>

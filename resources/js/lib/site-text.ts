@@ -5,6 +5,16 @@ const messages = {
     services: ['Services', 'सेवा', 'સેવાઓ'],
     shop: ['Shop', 'दुकान', 'દુકાન'],
     blog: ['Blog', 'ब्लॉग', 'બ્લોગ'],
+    workshopGallery: [
+        'Workshop gallery',
+        'वर्कशॉपची छायाचित्रे',
+        'વર્કશોપની તસવીરો',
+    ],
+    workshopGalleryIntro: [
+        'A look at our computer repair work in Nalasopara East.',
+        'नालासोपारा पूर्व येथील आमच्या संगणक दुरुस्तीच्या कामाची झलक.',
+        'નાલાસોપારા પૂર્વમાં અમારા કમ્પ્યુટર રિપેર કામની એક ઝલક.',
+    ],
     contact: ['Contact', 'संपर्क', 'સંપર્ક'],
     mainNav: ['Main navigation', 'मुख्य मेनू', 'મુખ્ય મેનુ'],
     openMenu: ['Open menu', 'मेनू उघडा', 'મેનુ ખોલો'],
@@ -534,11 +544,11 @@ const messages = {
         'पारदर्शक दर',
         'પારદર્શક ભાવ',
     ],
-    visitChargeAmount: ['₹350', '₹३५०', '₹૩૫૦'],
+    visitChargeAmount: [':visitCharge', ':visitCharge', ':visitCharge'],
     visitChargeTitle: [
-        '₹350 Visiting Charge',
-        '₹३५० व्हिजिटिंग चार्ज',
-        '₹૩૫૦ વિઝિટિંગ ચાર્જ',
+        ':visitCharge Visiting Charge',
+        ':visitCharge व्हिजिटिंग चार्ज',
+        ':visitCharge વિઝિટિંગ ચાર્જ',
     ],
     visitChargeSoftware: [
         'Includes repair of any software-related problem.',
@@ -550,7 +560,11 @@ const messages = {
         'हार्डवेअर बिघाड असल्यास फक्त बदललेल्या पार्ट्सचा खर्च वेगळा लागेल.',
         'હાર્ડવેર ખામી હોય તો ફક્ત બદલાતા પાર્ટ્સનો ખર્ચ અલગથી લાગશે.',
     ],
-    bookVisit: ['Book a ₹350 visit', '₹३५० व्हिजिट बुक करा', '₹૩૫૦ વિઝિટ બુક કરો'],
+    bookVisit: [
+        'Book a :visitCharge visit',
+        ':visitCharge व्हिजिट बुक करा',
+        ':visitCharge વિઝિટ બુક કરો',
+    ],
     specChipLevel: [
         'Chip-Level Repairing',
         'चिप-लेव्हल दुरुस्ती',
@@ -588,9 +602,9 @@ const messages = {
         'વિઝિટિંગ અને રિપેરનો ચાર્જ કેટલો છે?',
     ],
     faqChargesAnswer: [
-        'Our visiting charge is ₹350, which includes repairing any software-related problem. If there is a hardware fault, you only pay the cost of the required parts.',
-        'आमचे व्हिजिटिंग चार्ज ₹३५० आहेत, ज्यामध्ये कोणत्याही सॉफ्टवेअर समस्येची दुरुस्ती समाविष्ट आहे. हार्डवेअर बिघाड असल्यास फक्त आवश्यक पार्ट्सचा खर्च लागेल.',
-        'અમારો વિઝિટિંગ ચાર્જ ₹૩૫૦ છે, જેમાં કોઈપણ સોફ્ટવેર સમસ્યાનું રિપેર સામેલ છે. જો હાર્ડવેર ખામી હોય તો ફક્ત જરૂરી પાર્ટ્સનો ખર્ચ લાગશે.',
+        'Our visiting charge is :visitCharge, which includes repairing any software-related problem. If there is a hardware fault, you only pay the cost of the required parts.',
+        'आमचे व्हिजिटिंग चार्ज :visitCharge आहेत, ज्यामध्ये कोणत्याही सॉफ्टवेअर समस्येची दुरुस्ती समाविष्ट आहे. हार्डवेअर बिघाड असल्यास फक्त आवश्यक पार्ट्सचा खर्च लागेल.',
+        'અમારો વિઝિટિંગ ચાર્જ :visitCharge છે, જેમાં કોઈપણ સોફ્ટવેર સમસ્યાનું રિપેર સામેલ છે. જો હાર્ડવેર ખામી હોય તો ફક્ત જરૂરી પાર્ટ્સનો ખર્ચ લાગશે.',
     ],
     faqSpecialties: [
         'Do you repair MacBooks, All-in-One PCs, and chip-level faults?',
@@ -639,9 +653,17 @@ const messages = {
 export type SiteTextKey = keyof typeof messages;
 export type SiteLocale = 'en' | 'mr' | 'gu';
 const index = { en: 0, mr: 1, gu: 2 } as const;
+const chargeFormatters = {
+    en: new Intl.NumberFormat('en-IN'),
+    mr: new Intl.NumberFormat('mr-IN', { numberingSystem: 'deva' }),
+    gu: new Intl.NumberFormat('gu-IN', { numberingSystem: 'gujr' }),
+};
 
 export function useSiteText() {
-    const { locale } = usePage<{ locale?: SiteLocale }>().props;
+    const { locale, visitingChargeInr } = usePage<{
+        locale?: SiteLocale;
+        visitingChargeInr: number;
+    }>().props;
     const language = locale && locale in index ? locale : 'en';
 
     function t(
@@ -650,12 +672,19 @@ export function useSiteText() {
     ): string {
         return messages[key][index[language]].replace(
             /:(\w+)/g,
-            (match, name: string) =>
-                name in values ? String(values[name]) : match,
+            (match, name: string) => {
+                if (name === 'visitCharge') {
+                    return (
+                        '₹' + chargeFormatters[language].format(visitingChargeInr)
+                    );
+                }
+
+                return name in values ? String(values[name]) : match;
+            },
         );
     }
 
-    return { language, t };
+    return { language, t, visitingChargeInr };
 }
 
 export function isSiteTextKey(value: string): value is SiteTextKey {

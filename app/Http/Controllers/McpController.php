@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\RepairServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class McpController extends Controller
             'name' => 'vishwa-it-solutions',
             'title' => 'Vishwa IT Solutions',
             'version' => '1.0.0',
-            'description' => 'Read-only MCP server for Vishwa IT Solutions — computer repair services, ₹350 visiting charge details, workshop contact info, and pre-owned device inventory in Nalasopara East.',
+            'description' => 'Read-only MCP server for Vishwa IT Solutions — computer repair services, '.RepairServices::visitingCharge().' visiting charge details, workshop contact info, and pre-owned device inventory in Nalasopara East.',
             'homepage' => route('home'),
             'endpoint' => url('/api/mcp'),
             'transport' => [
@@ -88,8 +89,8 @@ class McpController extends Controller
                 'phone' => '+91 76667 04188',
                 'whatsapp' => 'https://wa.me/917666704188',
                 'address' => 'Room no. 2, Chauhan Chawl, Hans Vijay Nagar, Hawai Pada, Nalasopara East, Vasai-Virar, Maharashtra 401209',
-                'visiting_charge_inr' => 350,
-                'visiting_charge_policy' => '₹350 visiting charge includes repair of any software-related problem. If there is a hardware fault, only the cost of replacement parts applies.',
+                'visiting_charge_inr' => RepairServices::VISITING_CHARGE_INR,
+                'visiting_charge_policy' => RepairServices::visitingCharge().' visiting charge includes repair of any software-related problem. If there is a hardware fault, only the cost of replacement parts applies.',
                 'specialties' => ['Chip-Level Repairing', 'MacBook Repair', 'All-in-One Systems', 'Laptop & PC Repair', 'Networking', 'Data Recovery', 'Office IT Support (AMC)'],
                 'service_areas' => [
                     'palghar_vasai_virar' => ['Nalasopara East', 'Nalasopara West', 'Vasai', 'Virar', 'Palghar', 'Boisar'],
@@ -166,7 +167,7 @@ class McpController extends Controller
         return [
             [
                 'name' => 'get_business_info',
-                'description' => 'Get Vishwa IT Solutions workshop address, phone, WhatsApp link, ₹350 visiting charge policy, and repair specialties.',
+                'description' => 'Get Vishwa IT Solutions workshop address, phone, WhatsApp link, '.RepairServices::visitingCharge().' visiting charge policy, and repair specialties.',
                 'inputSchema' => [
                     'type' => 'object',
                     'properties' => (object) [],

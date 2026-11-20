@@ -1060,3 +1060,52 @@ select {
         scroll-behavior: auto;
     }
 }
+.vishwa-site .workshop-gallery {
+    background: color-mix(in srgb, var(--gold) 9%, transparent);
+}
+
+.vishwa-site .workshop-gallery .section-head p {
+    margin: 0.55rem 0 0;
+    color: var(--muted);
+}
+
+.workshop-gallery-masonry {
+    --gallery-gap: clamp(0.75rem, 2vw, 1.5rem);
+    column-gap: var(--gallery-gap);
+}
+
+.workshop-gallery-photo {
+    margin: 0 0 var(--gallery-gap);
+    break-inside: avoid;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    border-radius: 1rem;
+}
+
+.workshop-gallery-photo:only-child {
+    max-width: 46rem;
+}
+
+.workshop-gallery-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.workshop-gallery-photo figcaption {
+    padding: 0.85rem 1rem;
+    color: var(--ink);
+    font-size: 0.95rem;
+}
+
+@media (min-width: 36rem) {
+    .workshop-gallery-masonry:has(> :nth-child(2)) {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 60rem) {
+    .workshop-gallery-masonry:has(> :nth-child(3)) {
+        column-count: 3;
+    }
+}

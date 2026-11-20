@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use Inertia\Inertia;
+use Inertia\Response;
+use Inertia\Support\Header;
+
 class Seo
 {
     public const BUSINESS_NAME = 'Vishwa IT Solutions';
@@ -17,16 +21,37 @@ class Seo
         return route('home').'/';
     }
 
+    /**
+     * @param  array<string, mixed>  $props
+     * @param  array<string, mixed>|null  $schema
+     */
+    public static function render(string $component, array $props, ?array $schema = null): Response
+    {
+        if ($schema === null) {
+            return Inertia::render($component, $props);
+        }
+
+        $structuredData = json_encode(
+            ['@context' => 'https://schema.org', ...$schema],
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES,
+        );
+
+        if (request()->header(Header::INERTIA)) {
+            $props['structuredData'] = $structuredData;
+        }
+
+        return Inertia::render($component, $props)->withViewData('structuredData', $structuredData);
+    }
+
     public static function businessId(): string
     {
         return self::homeUrl().'#business';
     }
 
     /**
-     * @param  array<string, mixed>|null  $schema
-     * @return array<string, mixed>
+     * @return array{title: string, description: string, canonical: string, image: string, imageAlt: string, type: string, robots: string}
      */
-    public static function page(string $title, string $description, string $canonical, ?string $image = null, string $type = 'website', ?array $schema = null, bool $noindex = false, ?string $imageAlt = null): array
+    public static function page(string $title, string $description, string $canonical, ?string $image = null, string $type = 'website', bool $noindex = false, ?string $imageAlt = null): array
     {
         return [
             'title' => $title,
@@ -36,10 +61,6 @@ class Seo
             'imageAlt' => $imageAlt ?? 'Vishwa IT Solutions computer repair and support',
             'type' => $type,
             'robots' => $noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large',
-            'structured' => $schema === null ? null : json_encode(
-                ['@context' => 'https://schema.org', ...$schema],
-                JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES,
-            ),
         ];
     }
 

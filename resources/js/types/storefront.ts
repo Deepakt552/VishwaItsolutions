@@ -1,5 +1,14 @@
 export type Photo = { name: string; url: string };
 
+export type GalleryPhoto = {
+    id: number;
+    url: string;
+    alt_text: string;
+    caption: string | null;
+    width: number;
+    height: number;
+};
+
 export type Product = {
     id: number;
     slug: string;
@@ -63,7 +72,6 @@ export type Seo = {
     imageAlt: string;
     type: string;
     robots: string;
-    structured: string | null;
 };
 
 export function storageLabel(amount: number): string {

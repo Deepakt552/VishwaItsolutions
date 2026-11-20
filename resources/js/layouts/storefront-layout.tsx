@@ -44,14 +44,26 @@ const mainNav = [
     ['contact', contact, Phone],
 ] as const;
 
+const initialSchema =
+    typeof document === 'undefined'
+        ? null
+        : document.head.querySelector<HTMLScriptElement>(
+              'script[data-inertia="structured"]',
+          );
+
 export default function StorefrontLayout({
     children,
 }: {
     children: ReactNode;
 }) {
-    const { props, url } = usePage<{ seo: Seo }>();
+    const { props, url } = usePage<{ seo: Seo; structuredData?: string }>();
     const { seo } = props;
-    const { language, t } = useSiteText();
+    const structuredData =
+        props.structuredData ??
+        (initialSchema?.dataset.canonical === seo.canonical
+            ? initialSchema.textContent
+            : null);
+    const { language, t, visitingChargeInr } = useSiteText();
     const [menu, setMenu] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const closeMenu = () => setMenu(false);
@@ -100,12 +112,12 @@ export default function StorefrontLayout({
     };
 
     useEffect(() => {
-        registerWebMcpTools();
+        registerWebMcpTools(visitingChargeInr);
         document.documentElement.lang = language;
         return () => {
             document.documentElement.lang = 'en';
         };
-    }, [language]);
+    }, [language, visitingChargeInr]);
 
     return (
         <div className="vishwa-site">
@@ -137,9 +149,9 @@ export default function StorefrontLayout({
                         content={value}
                     />
                 ))}
-                {seo.structured && (
+                {structuredData && (
                     <script head-key="structured" type="application/ld+json">
-                        {seo.structured}
+                        {structuredData}
                     </script>
                 )}
             </Head>

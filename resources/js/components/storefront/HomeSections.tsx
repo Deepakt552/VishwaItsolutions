@@ -382,7 +382,7 @@ export function SpecialistRepairs({
 }
 
 export function VisitingPricingBanner() {
-    const { t } = useSiteText();
+    const { t, visitingChargeInr } = useSiteText();
 
     return (
         <section
@@ -414,7 +414,7 @@ export function VisitingPricingBanner() {
                         <Chat
                             className="button hero-cta-primary visiting-cta"
                             icon="black"
-                            message="Hi Vishwa IT Solutions, I’d like to book a ₹350 technician visit."
+                            message={`Hi Vishwa IT Solutions, I’d like to book a ₹${visitingChargeInr} technician visit.`}
                         >
                             {t('bookVisit')}
                         </Chat>
