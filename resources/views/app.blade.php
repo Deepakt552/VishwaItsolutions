@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="msvalidate.01" content="A7099DCE82B1096F6624F7C30C8F6481" />
 
         <!-- Google tag (GTM-THL57LMB) -->
         <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-THL57LMB"></script>
