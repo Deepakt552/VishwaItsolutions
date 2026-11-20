@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 @php($seo = $page['props']['seo'] ?? null)
+@php($isStorefront = str_starts_with($page['component'], 'storefront/'))
+@php($isHome = $page['component'] === 'storefront/home')
+@php($homePreview = $isHome ? json_decode(file_get_contents(resource_path('js/lib/home-preview.json')), true, flags: JSON_THROW_ON_ERROR) : null)
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
     <head>
         <meta charset="utf-8">
@@ -7,11 +10,37 @@
         <meta name="msvalidate.01" content="A7099DCE82B1096F6624F7C30C8F6481" />
 
         <!-- Google tag (GTM-THL57LMB) -->
-        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-THL57LMB"></script>
+        @unless ($isHome)
+            <script async fetchpriority="low" src="https://www.googletagmanager.com/gtm.js?id=GTM-THL57LMB"></script>
+        @endunless
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            @if ($isHome)
+                window.addEventListener('load', () => {
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        for (const pending of document.querySelectorAll('script[data-home-module]')) {
+                            const module = document.createElement('script');
+                            module.type = 'module';
+                            module.src = pending.dataset.homeModule;
+                            module.nonce = pending.nonce;
+                            for (const attribute of ['crossorigin', 'integrity']) {
+                                if (pending.hasAttribute(attribute)) {
+                                    module.setAttribute(attribute, pending.getAttribute(attribute));
+                                }
+                            }
+                            pending.replaceWith(module);
+                        }
+
+                        const tag = document.createElement('script');
+                        tag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-THL57LMB';
+                        tag.async = true;
+                        tag.fetchPriority = 'low';
+                        document.head.append(tag);
+                    }));
+                }, { once: true });
+            @endif
         </script>
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
@@ -44,10 +73,21 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+        @if ($isStorefront)
+            <link rel="preload" as="image" href="/vishwa-logo.svg" fetchpriority="high">
+        @endif
+        @if ($homePreview)
+            <link rel="preload" as="image" imagesrcset="{{ $homePreview['image']['srcSet'] }}" imagesizes="{{ $homePreview['image']['sizes'] }}" fetchpriority="high">
+        @endif
         @fonts
 
         @viteReactRefresh
-        @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+        @vite([
+            'resources/css/app.css',
+            'resources/js/app.tsx',
+            "resources/js/pages/{$page['component']}.tsx",
+            ...($isStorefront ? ['resources/js/layouts/storefront-layout.tsx'] : []),
+        ])
         <x-inertia::head>
             <title data-inertia>{{ $seo ? $seo['title'].' | Vishwa IT Solutions' : 'Vishwa IT Solutions' }}</title>
             @if ($seo)
@@ -77,12 +117,17 @@
     </head>
     <body class="font-sans antialiased">
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THL57LMB" title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        @if ($isHome && !app(\Inertia\Ssr\SsrState::class)->response)
+            @include('home-preview')
+        @endif
         <x-inertia::app />
         @if ($seo)
             <noscript>
                 <main>
-                    <h1>{{ $seo['title'] }}</h1>
-                    <p>{{ $seo['description'] }}</p>
+                    @unless ($isHome)
+                        <h1>{{ $seo['title'] }}</h1>
+                        <p>{{ $seo['description'] }}</p>
+                    @endunless
                 @if ($page['component'] === 'storefront/service')
                     @foreach ($page['props']['service']['sections'] as $heading => $copy)
                         <h2>{{ $heading }}</h2>

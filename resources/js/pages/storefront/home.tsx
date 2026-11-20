@@ -43,42 +43,47 @@ export default function Home({
     return (
         <>
             <Hero reviewsEnabled={reviewsEnabled} />
-            <Services repairServices={repairServices} />
-            <VisitingPricingBanner />
-            <Maintenance />
-            <section id="shop" className="section shop">
-                <div className="wrap">
-                    <Reveal className="section-head">
-                        <h2>{t('homeShop')}</h2>
-                        <Link href={shop()} className="button secondary">
-                            {t('viewShop')}
-                        </Link>
-                    </Reveal>
-                    {products.length ? (
-                        <ProductCards items={products} />
-                    ) : (
-                        <EmptyStock />
-                    )}
-                </div>
-            </section>
-            <LiveReviews enabled={reviewsEnabled} />
-            {posts.length > 0 && (
-                <section className="section">
+            <div className="home-sections">
+                <Services repairServices={repairServices} />
+                <VisitingPricingBanner />
+                <Maintenance />
+                <section id="shop" className="section shop">
                     <div className="wrap">
                         <Reveal className="section-head">
-                            <h2>{t('latestAdvice')}</h2>
-                            <Link href={blog()} className="button secondary">
-                                {t('allArticles')}
+                            <h2>{t('homeShop')}</h2>
+                            <Link href={shop()} className="button secondary">
+                                {t('viewShop')}
                             </Link>
                         </Reveal>
-                        <ArticleCards posts={posts} />
+                        {products.length ? (
+                            <ProductCards items={products} />
+                        ) : (
+                            <EmptyStock />
+                        )}
                     </div>
                 </section>
-            )}
-            <FrequentlyAsked />
-            <ServiceAreas />
-            <Contact />
-            <WorkshopGallery photos={galleryPhotos} />
+                <LiveReviews enabled={reviewsEnabled} />
+                {posts.length > 0 && (
+                    <section className="section">
+                        <div className="wrap">
+                            <Reveal className="section-head">
+                                <h2>{t('latestAdvice')}</h2>
+                                <Link
+                                    href={blog()}
+                                    className="button secondary"
+                                >
+                                    {t('allArticles')}
+                                </Link>
+                            </Reveal>
+                            <ArticleCards posts={posts} />
+                        </div>
+                    </section>
+                )}
+                <FrequentlyAsked />
+                <ServiceAreas />
+                <Contact />
+                <WorkshopGallery photos={galleryPhotos} />
+            </div>
         </>
     );
 }

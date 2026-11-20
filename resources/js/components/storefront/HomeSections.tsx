@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import {
     ArrowUpRight,
     CheckCircle2,
@@ -12,6 +12,9 @@ import {
     ShieldCheck,
     Wrench,
 } from 'lucide-react';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { image as heroImage } from '@/lib/home-preview.json';
 import { useSiteText } from '@/lib/site-text';
 import { useLiveReviews } from '@/lib/use-live-reviews';
 import type { ReviewAvailability } from '@/lib/use-live-reviews';
@@ -127,6 +130,63 @@ export function Hero({
     const justdialFeed =
         feeds?.justdial?.status === 'live' ? feeds.justdial : undefined;
     const feedsLoaded = feeds !== null;
+    const reviewCards = (
+        <>
+            <HeroRatingCard
+                provider="google"
+                name="Google"
+                fallbackUrl={mapsListing}
+                enabled={reviewsEnabled.google}
+                feedsLoaded={feedsLoaded}
+                feed={googleFeed}
+            />
+            <HeroRatingCard
+                provider="justdial"
+                name="Justdial"
+                fallbackUrl={justdialListing}
+                enabled={reviewsEnabled.justdial}
+                feedsLoaded={feedsLoaded}
+                feed={justdialFeed}
+            />
+        </>
+    );
+    const reviewsHost =
+        typeof document === 'undefined'
+            ? null
+            : document.getElementById('home-preview-reviews');
+
+    useEffect(() => {
+        const shopLink = reviewsHost
+            ?.closest('section')
+            ?.querySelector<HTMLAnchorElement>('.hero-cta-secondary');
+
+        if (!shopLink) {
+            return;
+        }
+
+        const visitShop = (event: MouseEvent) => {
+            if (
+                event.defaultPrevented ||
+                event.button !== 0 ||
+                event.altKey ||
+                event.ctrlKey ||
+                event.metaKey ||
+                event.shiftKey
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+            router.visit(shopLink.href);
+        };
+        shopLink.addEventListener('click', visitShop);
+
+        return () => shopLink.removeEventListener('click', visitShop);
+    }, [reviewsHost]);
+
+    if (reviewsHost) {
+        return createPortal(reviewCards, reviewsHost);
+    }
 
     return (
         <section
@@ -143,17 +203,15 @@ export function Hero({
             <MotionPattern />
             <div className="hero-wide-wrap modern-hero-grid">
                 <div className="modern-hero-copy">
-                    <div className="hero-eyebrow-pill hero-anim hero-anim-1">
+                    <div className="hero-eyebrow-pill">
                         <span className="hero-live-dot" aria-hidden="true" />
                         <span>{t('trustedLocal')}</span>
                     </div>
-                    <h1 className="hero-anim hero-anim-2">
+                    <h1>
                         {t('heroTitle')} <em>{t('heroAccent')}</em>
                     </h1>
-                    <p className="hero-anim hero-anim-3">
-                        {t('heroServiceArea')}
-                    </p>
-                    <div className="actions hero-anim hero-anim-4">
+                    <p>{t('heroServiceArea')}</p>
+                    <div className="actions">
                         <Chat
                             className="button hero-cta-primary"
                             icon="black"
@@ -176,36 +234,19 @@ export function Hero({
                     </div>
 
                     <div
-                        className="hero-trust-dock hero-anim hero-anim-5"
+                        className="hero-trust-dock"
                         aria-label={t('reviewsTitle')}
                     >
-                        <HeroRatingCard
-                            provider="google"
-                            name="Google"
-                            fallbackUrl={mapsListing}
-                            enabled={reviewsEnabled.google}
-                            feedsLoaded={feedsLoaded}
-                            feed={googleFeed}
-                        />
-                        <HeroRatingCard
-                            provider="justdial"
-                            name="Justdial"
-                            fallbackUrl={justdialListing}
-                            enabled={reviewsEnabled.justdial}
-                            feedsLoaded={feedsLoaded}
-                            feed={justdialFeed}
-                        />
+                        {reviewCards}
                     </div>
                 </div>
 
-                <div className="hero-stage hero-anim hero-anim-media">
+                <div className="hero-stage">
                     <div className="hero-stage-glow" aria-hidden="true" />
                     <div className="modern-hero-media">
                         <img
-                            src="/repair-bench.webp"
+                            {...heroImage}
                             alt={t('heroPhoto')}
-                            width="1200"
-                            height="800"
                             fetchPriority="high"
                         />
                         <div className="hero-media-scrim" aria-hidden="true" />

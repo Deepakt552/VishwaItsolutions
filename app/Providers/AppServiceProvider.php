@@ -37,6 +37,13 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('draft-generation', fn (Request $request): Limit => Limit::perMinute(6)->by($request->user()->id ?? 'unknown'));
         RateLimiter::for('api-token-rotation', fn (Request $request): Limit => Limit::perMinute(5)->by($request->user()->id ?? 'unknown'));
 
+        Vite::useScriptTagAttributes(fn (?string $source, string $url, ?array $chunk): array => request()->routeIs('home') && $chunk !== null
+            ? ['src' => false, 'data-home-module' => $url]
+            : []);
+        Vite::usePreloadTagAttributes(fn (?string $source, string $url): array|false => request()->routeIs('home') && str_ends_with($url, '.js')
+            ? false
+            : []);
+
         if ($this->app->runningUnitTests()) {
             Vite::useHotFile(storage_path('framework/testing-vite.hot'));
         }

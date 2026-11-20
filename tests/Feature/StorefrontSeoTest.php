@@ -34,6 +34,22 @@ test('the homepage identifies the workshop and its profiles without using provid
     expect(substr_count((string) $response->getContent(), 'type="application/ld+json"'))->toBe(1);
 });
 
+test('the homepage sends the localized first screen before Inertia starts', function () {
+    $this->get(route('home', ['lang' => 'mr']))
+        ->assertOk()
+        ->assertSee('data-home-module="', false)
+        ->assertDontSee('rel="modulepreload" as="script"', false)
+        ->assertSeeInOrder([
+            'id="home-preview"',
+            '<h1>लॅपटॉप आणि पीसी दुरुस्ती <em>नालासोपारा पूर्व येथे.</em></h1>',
+            'srcset="/repair-bench-768.webp 768w, /repair-bench.webp 1200w"',
+        ], false);
+
+    $this->get(route('storefront.services'))
+        ->assertOk()
+        ->assertDontSee('id="home-preview"', false);
+});
+
 test('Inertia navigation receives the destination structured data and metadata', function () {
     $url = route('storefront.service', 'macbook-repair');
     $version = $this->get(route('home'))->viewData('page')['version'] ?? '';

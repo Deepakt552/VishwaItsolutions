@@ -9,38 +9,7 @@
       "instrument-sans": "--font-instrument-sans: \"Instrument Sans\";"
     }
   },
-  "preloads": [
-    {
-      "alias": "instrument-sans",
-      "family": "Instrument Sans",
-      "weight": 400,
-      "style": "normal",
-      "file": "assets/instrument-sans-400-normal-DRC__1Mx.woff2",
-      "as": "font",
-      "type": "font/woff2",
-      "crossorigin": "anonymous"
-    },
-    {
-      "alias": "instrument-sans",
-      "family": "Instrument Sans",
-      "weight": 500,
-      "style": "normal",
-      "file": "assets/instrument-sans-500-normal-Dk9ku72i.woff2",
-      "as": "font",
-      "type": "font/woff2",
-      "crossorigin": "anonymous"
-    },
-    {
-      "alias": "instrument-sans",
-      "family": "Instrument Sans",
-      "weight": 600,
-      "style": "normal",
-      "file": "assets/instrument-sans-600-normal-B7fBEWYG.woff2",
-      "as": "font",
-      "type": "font/woff2",
-      "crossorigin": "anonymous"
-    }
-  ],
+  "preloads": [],
   "families": {
     "instrument-sans": {
       "family": "Instrument Sans",

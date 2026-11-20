@@ -1,10 +1,9 @@
 import { usePage } from '@inertiajs/react';
+import { copy as homePreviewCopy } from './home-preview.json';
 
 const messages = {
-    home: ['Home', 'मुख्यपृष्ठ', 'મુખ્ય પાનું'],
-    services: ['Services', 'सेवा', 'સેવાઓ'],
-    shop: ['Shop', 'दुकान', 'દુકાન'],
-    blog: ['Blog', 'ब्लॉग', 'બ્લોગ'],
+    ...homePreviewCopy,
+    openMenu: ['Open menu', 'मेनू उघडा', 'મેનુ ખોલો'],
     workshopGallery: [
         'Workshop gallery',
         'वर्कशॉपची छायाचित्रे',
@@ -15,51 +14,21 @@ const messages = {
         'नालासोपारा पूर्व येथील आमच्या संगणक दुरुस्तीच्या कामाची झलक.',
         'નાલાસોપારા પૂર્વમાં અમારા કમ્પ્યુટર રિપેર કામની એક ઝલક.',
     ],
-    contact: ['Contact', 'संपर्क', 'સંપર્ક'],
-    mainNav: ['Main navigation', 'मुख्य मेनू', 'મુખ્ય મેનુ'],
-    openMenu: ['Open menu', 'मेनू उघडा', 'મેનુ ખોલો'],
     closeMenu: ['Close menu', 'मेनू बंद करा', 'મેનુ બંધ કરો'],
     skip: ['Skip to content', 'थेट मजकुराकडे जा', 'સીધા સામગ્રી પર જાઓ'],
-    location: [
-        'Nalasopara East, Maharashtra',
-        'नालासोपारा पूर्व, महाराष्ट्र',
-        'નાલાસોપારા પૂર્વ, મહારાષ્ટ્ર',
-    ],
     address: [
         'Room no. 2, Chauhan Chawl, Hans Vijay Nagar, Hawai Pada, Nalasopara East, Vasai-Virar, Maharashtra 401209',
         'रूम क्र. २, चौहान चाळ, हंस विजय नगर, हवाई पाडा, नालासोपारा पूर्व, वसई-विरार, महाराष्ट्र ४०१२०९',
         'રૂમ નં. ૨, ચૌહાણ ચાલ, હંસ વિજય નગર, હવાઈ પાડા, નાલાસોપારા પૂર્વ, વસઈ-વિરાર, મહારાષ્ટ્ર ૪૦૧૨૦૯',
     ],
     language: ['Language', 'भाषा', 'ભાષા'],
-    whatsapp: ['Chat on WhatsApp', 'WhatsApp वर बोला', 'WhatsApp પર વાત કરો'],
     admin: ['Admin sign in', 'प्रशासक लॉग इन', 'એડમિન લૉગ ઇન'],
     dashboard: ['Dashboard', 'डॅशबोर्ड', 'ડૅશબોર્ડ'],
-    heroTitle: [
-        'Laptop & PC repair',
-        'लॅपटॉप आणि पीसी दुरुस्ती',
-        'લેપટોપ અને પીસી રિપેર',
-    ],
-    heroAccent: [
-        'in Nalasopara East.',
-        'नालासोपारा पूर्व येथे.',
-        'નાલાસોપારા પૂર્વમાં.',
-    ],
     heroCopy: [
         'We fix computers, help offices, and sell used devices.',
         'संगणक दुरुस्ती, ऑफिस आयटी मदत आणि वापरलेले संगणक.',
         'કમ્પ્યુટર રિપેર, ઓફિસ આઇટી સપોર્ટ અને વપરાયેલા કમ્પ્યુટર.',
     ],
-    heroServiceArea: [
-        'Bring your device to our workshop or schedule a technician visit anywhere in Mumbai.',
-        'तुमचे उपकरण आमच्या वर्कशॉपमध्ये आणा किंवा मुंबईत कुठेही तंत्रज्ञाची भेट ठरवा.',
-        'તમારું ઉપકરણ અમારી વર્કશોપમાં લાવો અથવા મુંબઈમાં ગમે ત્યાં ટેક્નિશિયનની મુલાકાત બુક કરો.',
-    ],
-    heroPhoto: [
-        'A technician repairing a laptop motherboard',
-        'लॅपटॉपचा मदरबोर्ड दुरुस्त करताना तंत्रज्ञ',
-        'લેપટોપનું મધરબોર્ડ રિપેર કરતા ટેક્નિશિયન',
-    ],
-    browseDevices: ['Browse devices', 'संगणक पाहा', 'કમ્પ્યુટર જુઓ'],
     help: ['How we can help', 'आम्ही कशी मदत करतो', 'અમે કેવી રીતે મદદ કરીએ'],
     allServices: ['View all services', 'सर्व सेवा पाहा', 'બધી સેવાઓ જુઓ'],
     serviceTitle: [
@@ -502,27 +471,7 @@ const messages = {
     hidePassword: ['Hide password', 'पासवर्ड लपवा', 'પાસવર્ડ છુપાવો'],
     googleReviews: ['Google Reviews', 'Google अभिप्राय', 'Google રિવ્યૂ'],
     justdialReviews: ['Justdial', 'Justdial', 'Justdial'],
-    verifiedReviews: [
-        'Verified reviews',
-        'पडताळलेले अभिप्राय',
-        'ચકાસાયેલ રિવ્યૂ',
-    ],
     readReviews: ['Read reviews', 'अभिप्राय वाचा', 'રિવ્યૂ વાંચો'],
-    sameDayCheck: [
-        'Same-day diagnostics',
-        'त्याच दिवशी तपासणी',
-        'તે જ દિવસે તપાસ',
-    ],
-    trustedLocal: [
-        'Trusted IT care · Nalasopara East',
-        'विश्वासार्ह आयटी सेवा · नालासोपारा पूर्व',
-        'વિશ્વસનીય આઇટી સેવા · નાલાસોપારા પૂર્વ',
-    ],
-    hardwareLab: [
-        'Hardware & Chip-Level Lab',
-        'हार्डवेअर आणि चिप-लेव्हल लॅब',
-        'હાર્ડવેર અને ચિપ-લેવલ લેબ',
-    ],
     faqBadge: ['Quick answers', 'त्वरित उत्तरे', 'ઝડપી જવાબો'],
     faqSubtitle: [
         'Everything you need to know about repairs, visits, and office IT support.',
@@ -648,7 +597,7 @@ const messages = {
         'पालघर, वसई-विरार, मुंबई वेस्टर्न लाईन आणि सेंट्रल लाईनवर तंत्रज्ञ भेट व चिप-लेव्हल दुरुस्ती.',
         'પાલઘર, વસઈ-વિરાર, મુંબઈ વેસ્ટર્ન લાઇન અને સેન્ટ્રલ લાઇન પર ટેક્નિશિયન વિઝિટ અને ચિપ-લેવલ રિપેર.',
     ],
-} satisfies Record<string, [string, string, string]>;
+} satisfies Record<string, string[]>;
 
 export type SiteTextKey = keyof typeof messages;
 export type SiteLocale = 'en' | 'mr' | 'gu';

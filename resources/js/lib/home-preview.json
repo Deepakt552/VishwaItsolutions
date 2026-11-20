@@ -1,0 +1,68 @@
+{
+    "image": {
+        "src": "/repair-bench.webp",
+        "srcSet": "/repair-bench-768.webp 768w, /repair-bench.webp 1200w",
+        "sizes": "(max-width: 860px) calc(100vw - 48px), (max-width: 1080px) 46vw, 42vw",
+        "width": 1200,
+        "height": 800
+    },
+    "copy": {
+        "home": ["Home", "मुख्यपृष्ठ", "મુખ્ય પાનું"],
+        "services": ["Services", "सेवा", "સેવાઓ"],
+        "shop": ["Shop", "दुकान", "દુકાન"],
+        "blog": ["Blog", "ब्लॉग", "બ્લોગ"],
+        "contact": ["Contact", "संपर्क", "સંપર્ક"],
+        "mainNav": ["Main navigation", "मुख्य मेनू", "મુખ્ય મેનુ"],
+        "location": [
+            "Nalasopara East, Maharashtra",
+            "नालासोपारा पूर्व, महाराष्ट्र",
+            "નાલાસોપારા પૂર્વ, મહારાષ્ટ્ર"
+        ],
+        "whatsapp": [
+            "Chat on WhatsApp",
+            "WhatsApp वर बोला",
+            "WhatsApp પર વાત કરો"
+        ],
+        "heroTitle": [
+            "Laptop & PC repair",
+            "लॅपटॉप आणि पीसी दुरुस्ती",
+            "લેપટોપ અને પીસી રિપેર"
+        ],
+        "heroAccent": [
+            "in Nalasopara East.",
+            "नालासोपारा पूर्व येथे.",
+            "નાલાસોપારા પૂર્વમાં."
+        ],
+        "heroServiceArea": [
+            "Bring your device to our workshop or schedule a technician visit anywhere in Mumbai.",
+            "तुमचे उपकरण आमच्या वर्कशॉपमध्ये आणा किंवा मुंबईत कुठेही तंत्रज्ञाची भेट ठरवा.",
+            "તમારું ઉપકરણ અમારી વર્કશોપમાં લાવો અથવા મુંબઈમાં ગમે ત્યાં ટેક્નિશિયનની મુલાકાત બુક કરો."
+        ],
+        "heroPhoto": [
+            "A technician repairing a laptop motherboard",
+            "लॅपटॉपचा मदरबोर्ड दुरुस्त करताना तंत्रज्ञ",
+            "લેપટોપનું મધરબોર્ડ રિપેર કરતા ટેક્નિશિયન"
+        ],
+        "sameDayCheck": [
+            "Same-day diagnostics",
+            "त्याच दिवशी तपासणी",
+            "તે જ દિવસે તપાસ"
+        ],
+        "hardwareLab": [
+            "Hardware & Chip-Level Lab",
+            "हार्डवेअर आणि चिप-लेव्हल लॅब",
+            "હાર્ડવેર અને ચિપ-લેવલ લેબ"
+        ],
+        "browseDevices": ["Browse devices", "संगणक पाहा", "કમ્પ્યુટર જુઓ"],
+        "verifiedReviews": [
+            "Verified reviews",
+            "पडताळलेले अभिप्राय",
+            "ચકાસાયેલ રિવ્યૂ"
+        ],
+        "trustedLocal": [
+            "Trusted IT care · Nalasopara East",
+            "विश्वासार्ह आयटी सेवा · नालासोपारा पूर्व",
+            "વિશ્વસનીય આઇટી સેવા · નાલાસોપારા પૂર્વ"
+        ]
+    }
+}

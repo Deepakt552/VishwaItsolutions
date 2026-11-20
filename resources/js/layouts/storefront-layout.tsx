@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import '../../css/storefront.css';
 import '../../css/storefront-pages.css';
 import '../../css/storefront-refresh.css';
@@ -56,7 +57,10 @@ export default function StorefrontLayout({
 }: {
     children: ReactNode;
 }) {
-    const { props, url } = usePage<{ seo: Seo; structuredData?: string }>();
+    const { props, url, component } = usePage<{
+        seo: Seo;
+        structuredData?: string;
+    }>();
     const { seo } = props;
     const structuredData =
         props.structuredData ??
@@ -64,10 +68,20 @@ export default function StorefrontLayout({
             ? initialSchema.textContent
             : null);
     const { language, t, visitingChargeInr } = useSiteText();
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(
+        () =>
+            typeof document !== 'undefined' &&
+            document.querySelector('.preview-mobile-menu[open]') !== null,
+    );
     const [scrolled, setScrolled] = useState(false);
     const closeMenu = () => setMenu(false);
     const pathname = url.split(/[?#]/)[0];
+    const headerHost =
+        component === 'storefront/home' && typeof document !== 'undefined'
+            ? document.getElementById('home-preview-header')
+            : null;
+    const renderHeader = (header: ReactNode) =>
+        headerHost ? createPortal(header, headerHost) : header;
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 18);
@@ -155,169 +169,201 @@ export default function StorefrontLayout({
                     </script>
                 )}
             </Head>
-            <a href="#main" className="skip">
-                {t('skip')}
-            </a>
-            <div className="topbar">
-                <div className="wrap top-inner">
-                    <a href={directions} target="_blank" rel="noreferrer">
-                        <MapPin size={15} aria-hidden="true" />
-                        {t('location')}
+            {renderHeader(
+                <>
+                    <a
+                        href={headerHost ? '#home-preview-content' : '#main'}
+                        className="skip"
+                    >
+                        {t('skip')}
                     </a>
-                    <a href={'tel:' + business.phone} dir="ltr">
-                        <Phone size={14} aria-hidden="true" />
-                        {business.phoneText}
-                    </a>
-                </div>
-            </div>
-            <header className={scrolled ? 'header is-scrolled' : 'header'}>
-                <div className="wrap header-inner">
-                    <Link
-                        href={home()}
-                        onClick={closeMenu}
-                        className="brand"
-                        aria-label={business.name + ' · ' + t('home')}
-                    >
-                        <img
-                            src="/vishwa-logo.svg"
-                            alt="Vishwa IT Solutions"
-                            width="192"
-                            height="63"
-                        />
-                    </Link>
-                    <button
-                        type="button"
-                        className={
-                            menu ? 'menu-button is-open' : 'menu-button'
-                        }
-                        aria-controls="mobile-drawer"
-                        aria-expanded={menu}
-                        aria-label={t(menu ? 'closeMenu' : 'openMenu')}
-                        onClick={() => setMenu(!menu)}
-                    >
-                        <span className="hamburger-bars" aria-hidden="true">
-                            <span />
-                            <span />
-                            <span />
-                        </span>
-                    </button>
-                    <nav
-                        id="site-nav"
-                        className="nav desktop-nav"
-                        aria-label={t('mainNav')}
-                    >
-                        {mainNav.map(([label, route]) => {
-                            const path = route.url();
-                            const active =
-                                pathname === path ||
-                                (path !== '/' &&
-                                    pathname.startsWith(path + '/'));
-                            return (
-                                <Link
-                                    href={route()}
-                                    onClick={closeMenu}
-                                    key={label}
-                                    aria-current={active ? 'page' : undefined}
-                                >
-                                    {t(label)}
-                                </Link>
-                            );
-                        })}
-                    </nav>
-                    <Chat className="button header-chat">{t('whatsapp')}</Chat>
-                </div>
-            </header>
-
-            {/* Modern Right-Side Slide-In Mobile Drawer */}
-            <div
-                className={
-                    menu
-                        ? 'mobile-drawer-backdrop is-open'
-                        : 'mobile-drawer-backdrop'
-                }
-                aria-hidden="true"
-                onClick={closeMenu}
-            />
-            <aside
-                id="mobile-drawer"
-                className={menu ? 'mobile-drawer is-open' : 'mobile-drawer'}
-                aria-label={t('mainNav')}
-                aria-hidden={!menu}
-            >
-                <div className="mobile-drawer-glow" aria-hidden="true" />
-                <div className="mobile-drawer-head">
-                    <div className="mobile-drawer-brand">
-                        <strong>Vishwa IT Solutions</strong>
-                        <span>{t('location')}</span>
-                    </div>
-                    <button
-                        type="button"
-                        className="mobile-drawer-close"
-                        aria-label={t('closeMenu')}
-                        onClick={closeMenu}
-                        tabIndex={menu ? 0 : -1}
-                    >
-                        <X size={20} aria-hidden="true" />
-                    </button>
-                </div>
-                <nav className="mobile-drawer-links" aria-label={t('mainNav')}>
-                    {mainNav.map(([label, route, Icon], index) => {
-                        const path = route.url();
-                        const active =
-                            pathname === path ||
-                            (path !== '/' && pathname.startsWith(path + '/'));
-                        return (
-                            <Link
-                                href={route()}
-                                onClick={closeMenu}
-                                key={label}
-                                aria-current={active ? 'page' : undefined}
-                                tabIndex={menu ? 0 : -1}
-                                style={{ ['--nav-i' as string]: index }}
+                    <div className="topbar">
+                        <div className="wrap top-inner">
+                            <a
+                                href={directions}
+                                target="_blank"
+                                rel="noreferrer"
                             >
-                                <span
-                                    className="drawer-link-icon"
-                                    aria-hidden="true"
-                                >
-                                    <Icon size={18} />
-                                </span>
-                                <span className="drawer-link-label">
-                                    {t(label)}
-                                </span>
-                                <ChevronRight
-                                    size={16}
-                                    className="drawer-link-arrow"
-                                    aria-hidden="true"
+                                <MapPin size={15} aria-hidden="true" />
+                                {t('location')}
+                            </a>
+                            <a href={'tel:' + business.phone} dir="ltr">
+                                <Phone size={14} aria-hidden="true" />
+                                {business.phoneText}
+                            </a>
+                        </div>
+                    </div>
+                    <header
+                        className={scrolled ? 'header is-scrolled' : 'header'}
+                    >
+                        <div className="wrap header-inner">
+                            <Link
+                                href={home()}
+                                onClick={closeMenu}
+                                className="brand"
+                                aria-label={business.name + ' · ' + t('home')}
+                            >
+                                <img
+                                    src="/vishwa-logo.svg"
+                                    alt="Vishwa IT Solutions"
+                                    width="192"
+                                    height="63"
+                                    fetchPriority="high"
                                 />
                             </Link>
-                        );
-                    })}
-                </nav>
-                <div className="mobile-drawer-footer">
-                    <Chat className="button primary drawer-wa">
-                        {t('whatsapp')}
-                    </Chat>
-                    <a
-                        href={'tel:' + business.phone}
-                        className="button secondary drawer-call"
-                        dir="ltr"
-                        tabIndex={menu ? 0 : -1}
+                            <button
+                                type="button"
+                                className={
+                                    menu ? 'menu-button is-open' : 'menu-button'
+                                }
+                                aria-controls="mobile-drawer"
+                                aria-expanded={menu}
+                                aria-label={t(menu ? 'closeMenu' : 'openMenu')}
+                                onClick={() => setMenu(!menu)}
+                            >
+                                <span
+                                    className="hamburger-bars"
+                                    aria-hidden="true"
+                                >
+                                    <span />
+                                    <span />
+                                    <span />
+                                </span>
+                            </button>
+                            <nav
+                                id="site-nav"
+                                className="nav desktop-nav"
+                                aria-label={t('mainNav')}
+                            >
+                                {mainNav.map(([label, route]) => {
+                                    const path = route.url();
+                                    const active =
+                                        pathname === path ||
+                                        (path !== '/' &&
+                                            pathname.startsWith(path + '/'));
+                                    return (
+                                        <Link
+                                            href={route()}
+                                            onClick={closeMenu}
+                                            key={label}
+                                            aria-current={
+                                                active ? 'page' : undefined
+                                            }
+                                        >
+                                            {t(label)}
+                                        </Link>
+                                    );
+                                })}
+                            </nav>
+                            <Chat className="button header-chat">
+                                {t('whatsapp')}
+                            </Chat>
+                        </div>
+                    </header>
+
+                    {/* Modern Right-Side Slide-In Mobile Drawer */}
+                    <div
+                        className={
+                            menu
+                                ? 'mobile-drawer-backdrop is-open'
+                                : 'mobile-drawer-backdrop'
+                        }
+                        aria-hidden="true"
+                        onClick={closeMenu}
+                    />
+                    <aside
+                        id="mobile-drawer"
+                        className={
+                            menu ? 'mobile-drawer is-open' : 'mobile-drawer'
+                        }
+                        aria-label={t('mainNav')}
+                        aria-hidden={!menu}
                     >
-                        <Phone size={16} aria-hidden="true" />
-                        {business.phoneText}
-                    </a>
-                    <a
-                        href={directions}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="drawer-directions"
-                        tabIndex={menu ? 0 : -1}
-                    >
-                        <MapPin size={14} aria-hidden="true" />
-                        {t('directions')}
-                    </a>
-                </div>
-            </aside>
+                        <div
+                            className="mobile-drawer-glow"
+                            aria-hidden="true"
+                        />
+                        <div className="mobile-drawer-head">
+                            <div className="mobile-drawer-brand">
+                                <strong>Vishwa IT Solutions</strong>
+                                <span>{t('location')}</span>
+                            </div>
+                            <button
+                                type="button"
+                                className="mobile-drawer-close"
+                                aria-label={t('closeMenu')}
+                                onClick={closeMenu}
+                                tabIndex={menu ? 0 : -1}
+                            >
+                                <X size={20} aria-hidden="true" />
+                            </button>
+                        </div>
+                        <nav
+                            className="mobile-drawer-links"
+                            aria-label={t('mainNav')}
+                        >
+                            {mainNav.map(([label, route, Icon], index) => {
+                                const path = route.url();
+                                const active =
+                                    pathname === path ||
+                                    (path !== '/' &&
+                                        pathname.startsWith(path + '/'));
+                                return (
+                                    <Link
+                                        href={route()}
+                                        onClick={closeMenu}
+                                        key={label}
+                                        aria-current={
+                                            active ? 'page' : undefined
+                                        }
+                                        tabIndex={menu ? 0 : -1}
+                                        style={{ ['--nav-i' as string]: index }}
+                                    >
+                                        <span
+                                            className="drawer-link-icon"
+                                            aria-hidden="true"
+                                        >
+                                            <Icon size={18} />
+                                        </span>
+                                        <span className="drawer-link-label">
+                                            {t(label)}
+                                        </span>
+                                        <ChevronRight
+                                            size={16}
+                                            className="drawer-link-arrow"
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
+                                );
+                            })}
+                        </nav>
+                        <div className="mobile-drawer-footer">
+                            <Chat className="button primary drawer-wa">
+                                {t('whatsapp')}
+                            </Chat>
+                            <a
+                                href={'tel:' + business.phone}
+                                className="button secondary drawer-call"
+                                dir="ltr"
+                                tabIndex={menu ? 0 : -1}
+                            >
+                                <Phone size={16} aria-hidden="true" />
+                                {business.phoneText}
+                            </a>
+                            <a
+                                href={directions}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="drawer-directions"
+                                tabIndex={menu ? 0 : -1}
+                            >
+                                <MapPin size={14} aria-hidden="true" />
+                                {t('directions')}
+                            </a>
+                        </div>
+                    </aside>
+                </>,
+            )}
             <main id="main" tabIndex={-1}>
                 {children}
             </main>
